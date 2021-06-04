@@ -1,0 +1,95 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "my.Test",
+		"type": "application",
+		"title": "test Table",
+		"description": "Testing",
+		"applicationVersion": {
+			"version": "1.0.0"
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "my.Test.view.App",
+			"type": "XML",
+			"async": true
+
+		},
+		"dependencies": {
+			"minUI5Version": "1.60",
+			"libs": {
+				"sap.m": {},
+				"sap.ui.layout": {}
+			}
+		},
+
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "my.Test.i18n.i18n"
+				}
+			},
+			"invoice": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "Invoices.json"
+			}
+
+		},
+
+		"resources": {
+			"css": [{
+				"uri": "css/style.css"
+			}]
+		},
+
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "my.Test.view",
+
+				"controlId": "App",
+				"controlAggregation": "pages",
+				"async": true
+
+			},
+			"routes": [{
+					"pattern": "",
+					"name": "app",
+					"target": "app"
+
+				},
+
+				{
+					"pattern": "detail/{invoicePath}",
+					"name": "detail",
+					"target": "detail"
+				}
+			],
+			"targets": {
+				"app": {
+					"viewId": "App",
+					"viewName": "App"
+
+				},
+				"detail": {
+					"viewId": "Detail",
+					"viewName": "Detail"
+
+				}
+			}
+
+		}
+	}
+}

@@ -1,0 +1,48 @@
+html[dir="ltr"] .myAppDemoWT .myCustomButton.sapMBtn {
+ 	margin-right: 2.125rem
+}
+
+html[dir="rtl"] .myAppDemoWT .myCustomButton.sapMBtn {
+	margin-left: 1.125rem
+}
+
+html[dir="rtl"] .myAppDemoWT .myCustomButton.sapMBtnInner {
+	height:100px;
+}
+
+.myAppDemoWT .myCustomText {
+	display: inline-block;
+	font-weight: bold;
+}
+
+
+.myAppDemoWT .myLink{
+	
+	font-weight: bold;
+   position: relative;
+   top: 10px;
+
+}
+
+
+.myAppDemoWT .myShell{
+color: #E8743B
+
+}
+
+.myWidth{
+	max-width: 200px;
+}
+
+
+.myCityWidth{
+	
+	position: relative;
+	right: -500px;
+}
+
+.myCityWidth1{
+	
+	position: relative;
+	right: -500px;
+}

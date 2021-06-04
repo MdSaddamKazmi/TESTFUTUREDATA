@@ -1,0 +1,95 @@
+<mvc:View controllerName="my.Test.controller.App" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:u="sap.ui.unified"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">>
+	<Shell >
+		<App id="App" class="sapUshellHeaderTitleColor">
+			<pages>
+				<Page title="CoWin App">
+					<content>
+						<Panel>
+							<FlexBox fitContainer="true" justifyContent="Center">
+								<RadioButtonGroup id="rbg3" columns="3" valueState="Error" select="onSelectRB">
+									<RadioButton id="RB1" text="Search by State / District" select="onSelectRB1"/>
+									<RadioButton id="RB2" text="Search by Pin code" select="onSelectRB2"/>
+								</RadioButtonGroup>
+							</FlexBox>
+						</Panel>
+						<Panel class="sapUiSizeCompact">
+							<l:VerticalLayout class="sapUiContentPadding" width="100%">
+								<l:Grid class="sapUiSmallMarginBottom" hSpacing="0" vSpacing="0" defaultSpan="L4 M6 S12" width="100%">
+									<FlexBox class="sapUiTinyMarginBottom" direction="Column" fitContainer="true" alignItems="Start" justifyContent="Start" width="50%">
+										<Text text="States"/>
+										<ComboBox id="combo1" items="{ path: '/states', sorter: { path: 'state_name' } }" class="sapUiSizeCompact" change="onhandleChange">
+											<core:Item key="{state_id}" text="{state_name}"/>
+										</ComboBox>
+										<VBox xmlns="sap.m" wrap="Wrap">
+											<Text text="Districts"/>
+											<ComboBox id="comboDistrict" items="{ path: '/districts', sorter: { path: 'district_name' } }" class="sapUiSizeCompact">
+												<core:Item key="{district_id}" text="{district_name}"/>
+											</ComboBox>
+										</VBox>
+									</FlexBox>
+									<FlexBox direction="Column" fitContainer="true" alignItems="Start" justifyContent="Start" width="50%">
+										<Text text="Pin Code"/>
+										<Input id="pin"  width="100%" class="sapUiSizeCompact"/>
+									</FlexBox>
+									<FlexBox direction="Column" fitContainer="true" alignItems="Start" justifyContent="Center">
+										<VBox xmlns="sap.m" wrap="Wrap">
+											<Text text="Date"/>
+											<DatePicker id="DP1" placeholder="Enter Date" width="100%" change="handleChange" class="sapUiSizeCompact"/>
+										</VBox>
+										<VBox xmlns="sap.m" wrap="Wrap">
+											<Button text="Search" press="onSearch"></Button>
+										</VBox>
+									</FlexBox>
+								</l:Grid>
+							</l:VerticalLayout>
+						</Panel>
+						<Table id="table1" class="sapUiSizeCompact" items="{/sessions}">
+							<!--Column Header-->
+							<columns>
+								<Column importance="High" width="11rem">
+									<ObjectIdentifier text="Center"/>
+								</Column>
+								<Column>
+									<Text text="Vaccine"/>
+								</Column>
+								<Column >
+									<Text text="Availability"/>
+								</Column>
+								<Column>
+									<Text text="Availability by Dose"/>
+								</Column>
+								<Column >
+									<Text text="Age Limit"/>
+								</Column>
+								<Column >
+									<Text text="Fee Type"/>
+								</Column>
+								<Column importance="High">
+									<Text text="Book Slot"/>
+								</Column>
+							</columns>
+							<!-- Column data-->
+							<ColumnListItem >
+								<cells>
+									<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
+									<ObjectStatus state="Information" text="{vaccine}"/>
+									<ObjectStatus
+										state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+										text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+									<ObjectStatus
+										state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
+										text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
+									<ObjectStatus state="Information" text="{min_age_limit}+"/>
+									<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
+									<Link text="{= ${available_capacity} !== 0 ? 'Book' : 'NA' }" href="https://selfregistration.cowin.gov.in/"
+										enabled="{path:'available_capacity', formatter: '.formatter.link_enabled'}"/>
+								</cells>
+							</ColumnListItem>
+						</Table>
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
