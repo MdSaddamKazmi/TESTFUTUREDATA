@@ -35,16 +35,17 @@
 									<FlexBox direction="Column" fitContainer="true" alignItems="Start" justifyContent="Center">
 										<VBox xmlns="sap.m" wrap="Wrap">
 											<Text text="Date"/>
-											<DatePicker id="DP1" placeholder="Enter Date" width="100%" change="handleChange" class="sapUiSizeCompact"/>
+											<DatePicker id="DP1" placeholder="Enter Date" width="100%" 
+											 change="handleChange" class="sapUiSizeCompact"/>
 										</VBox>
 										<VBox xmlns="sap.m" wrap="Wrap">
-											<Button text="Search" press="onSearch"></Button>
+											<Button text="Search" width="220px" press="onSearch"></Button>
 										</VBox>
 									</FlexBox>
 								</l:Grid>
 							</l:VerticalLayout>
 						</Panel>
-						<Table id="table1" class="sapUiSizeCompact" items="{/sessions}">
+						<Table id="table1" inset="false" class="sapUiSizeCompact" items="{/sessions}">
 							<!--Column Header-->
 							<columns>
 								<Column importance="High" width="11rem">
