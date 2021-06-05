@@ -30,6 +30,15 @@ color: #E8743B
 
 }
 
+.myColor{
+	/*background-color: #9ACD32;*/
+	background-color: #ADD8E6;
+}
+
+.myHeaderColor{
+	background: #D3D3D3;
+}
+
 .myWidth{
 	max-width: 200px;
 }
