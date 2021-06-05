@@ -45,12 +45,12 @@
 								</Panel>
 							</FlexBox>
 						</Panel>
-						<Table id="table1" inset="false" class="sapUiSizeCompact" items="{/sessions}">
+						<Table id="table1" inset="false" items="{/sessions}">
 							<!--<Panel>-->
 							<headerToolbar>
 								<OverflowToolbar>
 									<content>
-										<Title text="Vaccine Availibity Details" level="H2"/>
+										<Title text="Vaccine Availibility Details" level="H2"/>
 										<ToolbarSpacer/>
 										<CheckBox id="chk18" text="18+" select="onSelectCheckbox"/>
 										<CheckBox id="chk45" text="45+" select="onSelectCheckbox"/>
@@ -115,10 +115,11 @@
 							<ColumnListItem >
 								<cells>
 									<ObjectIdentifier title="{name}" text="{address},{block_name}, {district_name}, {state_name}, {pincode}"/>
-									<ObjectStatus state="Information" text="{vaccine}"/>
+									<ObjectStatus state="Information" text="{vaccine}" icon="{path:'vaccine', formatter: '.formatter.vaccine_image' }"/>
 									<ObjectStatus
 										state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
-										text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"/>
+										text="{path:'available_capacity', formatter: '.formatter.available_capacity'}"
+										icon="{path:'available_capacity', formatter: '.formatter.available_capacity_icon' }"/>
 									<ObjectStatus
 										state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
 										text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
@@ -126,7 +127,7 @@
 									<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
 									<!--<Link text="{= ${available_capacity} !== 0 ? 'Book' : 'NA' }" href="https://selfregistration.cowin.gov.in/" target="_blank-->
 									<!--	enabled="{path:'available_capacity', formatter: '.formatter.link_enabled'}"/>-->
-										<Button text="{= ${available_capacity} !== 0 ? 'Book' : 'NA' }" press="onButtonPress" 
+									<Button text="{= ${available_capacity} !== 0 ? 'Book' : 'NA' }" press="onButtonPress"
 										enabled="{path:'available_capacity', formatter: '.formatter.link_enabled'}"/>
 								</cells>
 							</ColumnListItem>
