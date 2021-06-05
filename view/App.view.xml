@@ -30,14 +30,14 @@
 										</ComboBox>
 										<Input id="pin" width="60%" placeholder="Enter PinCode" class="sapUiSizeCompact"/>
 									</FlexBox>
-									<FlexBox justifyContent="Center" alignItems="Start">
+									<FlexBox justifyContent="Center" alignItems="Start" >
 										<!--<VBox xmlns="sap.m" wrap="Wrap">-->
 										<!--<Text text="Date"/>-->
-										<DatePicker id="DP1" placeholder="Enter Date" change="handleChange" class="sapUiTinyMarginEnd"/>
+										<DatePicker id="DP1" placeholder="Enter Date" change="handleChange" displayFormat="long"  class="sapUiTinyMarginEnd"/>
 										<!--</VBox>-->
 										<FlexBox justifyContent="Center" alignItems="Start">
 											<!--<VBox xmlns="sap.m" wrap="Wrap">-->
-											<Button text="Search" width="300px" press="onSearch"></Button>
+											<Button text="Search" width="auto" press="onSearch"></Button>
 											<!--</VBox>-->
 										</FlexBox>
 									</FlexBox>
@@ -95,7 +95,7 @@
 								<Column minScreenWidth="Tablet">
 									<Text text="Vaccine"/>
 								</Column>
-								<Column minScreenWidth="Tablet">
+								<Column >
 									<Text text="Availability"/>
 								</Column>
 								<Column minScreenWidth="Tablet">
