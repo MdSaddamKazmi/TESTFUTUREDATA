@@ -16,29 +16,29 @@
 						<FlexBox justifyContent="Center" alignItems="Start">
 							<Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
 								<!--<content>-->
-									<FlexBox justifyContent="Center" alignItems="Start">
-										<!--<Panel class="sapUiSizeCompact">-->
-										<ComboBox id="combo1" items="{ path: '/states', sorter: { path: 'state_name' } }" placeholder="State" class="sapUiSizeCompact"
-											change="onhandleChange">
-											<core:Item key="{state_id}" text="{state_name}"/>
-										</ComboBox>
-										<ComboBox id="comboDistrict" items="{ path: '/districts', sorter: { path: 'district_name' } }" placeholder="District"
-											class="sapUiSizeCompact">
-											<core:Item key="{district_id}" text="{district_name}"/>
-										</ComboBox>
-										<Input id="pin" width="auto" placeholder="Enter PinCode" class="sapUiSizeCompact"/>
-									</FlexBox>
+								<FlexBox justifyContent="Center" alignItems="Start">
+									<!--<Panel class="sapUiSizeCompact">-->
+									<ComboBox id="combo1" items="{ path: '/states', sorter: { path: 'state_name' } }" placeholder="State" class="sapUiSizeCompact"
+										change="onhandleChange">
+										<core:Item key="{state_id}" text="{state_name}"/>
+									</ComboBox>
+									<ComboBox id="comboDistrict" items="{ path: '/districts', sorter: { path: 'district_name' } }" placeholder="District"
+										class="sapUiSizeCompact">
+										<core:Item key="{district_id}" text="{district_name}"/>
+									</ComboBox>
+									<Input id="pin" width="auto" placeholder="Enter PinCode" class="sapUiSizeCompact"/>
+								</FlexBox>
+								<FlexBox justifyContent="Center" alignItems="Start">
+									<!--<VBox xmlns="sap.m" wrap="Wrap">-->
+									<!--<Text text="Date"/>-->
+									<DatePicker id="DP1" placeholder="Enter Date" change="handleChange" class="sapUiTinyMarginEnd"/>
+									<!--</VBox>-->
 									<FlexBox justifyContent="Center" alignItems="Start">
 										<!--<VBox xmlns="sap.m" wrap="Wrap">-->
-											<!--<Text text="Date"/>-->
-											<DatePicker id="DP1" placeholder="Enter Date" change="handleChange" class="sapUiTinyMarginEnd" />
+										<Button text="Search" width="300px" press="onSearch"></Button>
 										<!--</VBox>-->
-										<FlexBox justifyContent="Center" alignItems="Start">
-											<!--<VBox xmlns="sap.m" wrap="Wrap">-->
-												<Button text="Search" width="300px" press="onSearch"></Button>
-											<!--</VBox>-->
-										</FlexBox>
 									</FlexBox>
+								</FlexBox>
 								<!--</content>-->
 							</Panel>
 						</FlexBox>
@@ -48,21 +48,21 @@
 								<Column importance="High" width="11rem">
 									<ObjectIdentifier text="Center"/>
 								</Column>
-								<Column>
+								<Column minScreenWidth="Tablet">
 									<Text text="Vaccine"/>
 								</Column>
-								<Column >
+								<Column minScreenWidth="Tablet">
 									<Text text="Availability"/>
 								</Column>
-								<Column>
+								<Column minScreenWidth="Tablet">
 									<Text text="Availability by Dose"/>
 								</Column>
-								<Column >
+								<Column minScreenWidth="Tablet">
 									<Text text="Age Limit"/>
 								</Column>
-								<Column >
+								<Column minScreenWidth="Tablet">
 									<Text text="Fee Type"/>
-								</Column>
+								</Column >
 								<Column importance="High">
 									<Text text="Book Slot"/>
 								</Column>
