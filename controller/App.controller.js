@@ -65,7 +65,6 @@ sap.ui.define([
 				filterArray.push(oFilter);
 			}
 
-
 			if (this.getView().byId("chkfree").getSelected()) {
 				oFilter = new sap.ui.model.Filter("fee_type", "EQ", "Free");
 				filterArray.push(oFilter);
@@ -85,6 +84,10 @@ sap.ui.define([
 			}
 			oBinding.filter(filterArray);
 
+		},
+
+		onButtonPress: function (oEvent) {
+			window.open("https://selfregistration.cowin.gov.in/", "_blank");
 		},
 
 		onSearch: function (oEvent) {
