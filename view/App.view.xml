@@ -124,7 +124,9 @@
 										text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
 									<ObjectStatus state="Information" text="{min_age_limit}+"/>
 									<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
-									<Link text="{= ${available_capacity} !== 0 ? 'Book' : 'NA' }" href="https://selfregistration.cowin.gov.in/"
+									<!--<Link text="{= ${available_capacity} !== 0 ? 'Book' : 'NA' }" href="https://selfregistration.cowin.gov.in/" target="_blank-->
+									<!--	enabled="{path:'available_capacity', formatter: '.formatter.link_enabled'}"/>-->
+										<Button text="{= ${available_capacity} !== 0 ? 'Book' : 'NA' }" press="onButtonPress" 
 										enabled="{path:'available_capacity', formatter: '.formatter.link_enabled'}"/>
 								</cells>
 							</ColumnListItem>
