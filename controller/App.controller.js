@@ -30,6 +30,63 @@ sap.ui.define([
 			return today;
 		},
 
+		setProductTypeFromSegmented: function (oevent) {
+			var productType = oevent.getParameters().item.getText();
+			// this.model.setProperty("/productType", productType);
+			// this._wizard.validateStep(this.byId("ProductTypeStep"));
+		},
+
+		onSelectCheckbox: function (oEvent) {
+			// var filtermodel = new sap.ui.model.json.JSONModel();
+			var filterArray = [];
+			// var oData1 = { filter: filterArray };
+			var oFilter;
+			var oBinding = this.getView().byId("table1").getBinding("items");
+
+			oBinding.filter([]);
+
+			if (this.getView().byId("chk18").getSelected()) {
+				oFilter = new sap.ui.model.Filter("min_age_limit", "EQ", "18");
+				filterArray.push(oFilter);
+			}
+
+			if (this.getView().byId("chk45").getSelected()) {
+				oFilter = new sap.ui.model.Filter("min_age_limit", "EQ", "45");
+				filterArray.push(oFilter);
+			}
+
+			if (this.getView().byId("chkcovaxin").getSelected()) {
+				oFilter = new sap.ui.model.Filter("vaccine", "EQ", "COVAXIN");
+				filterArray.push(oFilter);
+			}
+
+			if (this.getView().byId("chkcovishield").getSelected()) {
+				oFilter = new sap.ui.model.Filter("vaccine", "EQ", "COVISHIELD");
+				filterArray.push(oFilter);
+			}
+
+
+			if (this.getView().byId("chkfree").getSelected()) {
+				oFilter = new sap.ui.model.Filter("fee_type", "EQ", "Free");
+				filterArray.push(oFilter);
+			}
+
+			if (this.getView().byId("chkpaid").getSelected()) {
+				oFilter = new sap.ui.model.Filter("fee_type", "EQ", "Paid");
+				filterArray.push(oFilter);
+			}
+			if (this.getView().byId("chkdose1").getSelected()) {
+				oFilter = new sap.ui.model.Filter("available_capacity_dose1", "NE", "0");
+				filterArray.push(oFilter);
+			}
+			if (this.getView().byId("chkdose2").getSelected()) {
+				oFilter = new sap.ui.model.Filter("available_capacity_dose2", "NE", "0");
+				filterArray.push(oFilter);
+			}
+			oBinding.filter(filterArray);
+
+		},
+
 		onSearch: function (oEvent) {
 			var tableArray = [];
 
