@@ -6,8 +6,8 @@
 			<pages >
 				<Page title="CoWin App" class="myColor">
 					<content>
-						<Panel >
-							<FlexBox fitContainer="true" justifyContent="Center">
+						<Panel width="auto" >
+							<FlexBox fitContainer="true" justifyContent="Center" >
 								<RadioButtonGroup id="rbg3" columns="3" valueState="Success" select="onSelectRB">
 									<RadioButton id="RB1" text="Search by State / District" select="onSelectRB1"/>
 									<RadioButton id="RB2" text="Search by Pin code" select="onSelectRB2"/>
@@ -20,15 +20,15 @@
 									<!--<content>-->
 									<FlexBox justifyContent="Center" alignItems="Start">
 										<!--<Panel class="sapUiSizeCompact">-->
-										<ComboBox id="combo1" items="{ path: '/states', sorter: { path: 'state_name' } }" placeholder="State" class="sapUiSizeCompact"
+										<ComboBox id="combo1" items="{ path: '/states', sorter: { path: 'state_name' } }" placeholder="State" 
 											change="onhandleChange">
 											<core:Item key="{state_id}" text="{state_name}"/>
 										</ComboBox>
 										<ComboBox id="comboDistrict" items="{ path: '/districts', sorter: { path: 'district_name' } }" placeholder="District"
-											class="sapUiSizeCompact">
+										>
 											<core:Item key="{district_id}" text="{district_name}"/>
 										</ComboBox>
-										<Input id="pin" width="60%" placeholder="Enter PinCode" class="sapUiSizeCompact"/>
+										<Input id="pin" width="60%" placeholder="Enter PinCode" />
 									</FlexBox>
 									<FlexBox justifyContent="Center" alignItems="Start" >
 										<!--<VBox xmlns="sap.m" wrap="Wrap">-->
@@ -45,7 +45,7 @@
 								</Panel>
 							</FlexBox>
 						</Panel>
-						<Table id="table1" inset="false" items="{/sessions}">
+						<Table id="table1" inset="false" items="{/sessions}" class="sapUiSizeCompact">
 							<!--<Panel>-->
 							<headerToolbar>
 								<OverflowToolbar>
