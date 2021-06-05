@@ -3,28 +3,31 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
+	'sap/m/MessageToast',
 	"../formatter"
-], function (Controller, JSONModel, Filter, FilterOperator, formatter) {
+], function (Controller, JSONModel, Filter, FilterOperator, MessageToast, formatter) {
 	"use strict";
 
 	return Controller.extend("my.Test.controller.App", {
 		formatter: formatter,
 		onInit: function () {
 
-			// var tableArray = [];
-			// //Get the data from API 
-			// var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=803101&date=04-06-2021";
-			// var oPinModel = new JSONModel(sPath);
-			// tableArray.push(oPinModel);
-			// //Bind the data to the table
-			// var table = this.getView().byId("table1");
-			// table.setModel(tableArray[0]);
-
 			// //	https://cdn-api.co-vin.in/api/v2/admin/location/districts/1
 
 			var oModelState = new JSONModel("https://cdn-api.co-vin.in/api/v2/admin/location/states");
 			this.getView().byId("combo1").setModel(oModelState);
 			this.onSelectRB();
+			this.getView().byId("DP1").setValue(this.onGetDate());
+		},
+
+		onGetDate: function () {
+			var today = new Date();
+			var dd = String(today.getDate()).padStart(2, '0');
+			var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+			var yyyy = today.getFullYear();
+
+			today = yyyy + mm + dd;
+return today;
 		},
 
 		onSearch: function (oEvent) {
@@ -32,11 +35,37 @@ sap.ui.define([
 
 			var DP1 = this.getView().byId("DP1")._getInputValue();
 
+			// if (DP1 === '') {
+			// 	var msg = "Please fill the date";
+			// 	MessageToast.show(msg);
+			// 	return;
+			// }
+
 			var rb1 = this.getView().byId("RB1").getSelected();
 			var rb2 = this.getView().byId("RB2").getSelected();
 
+			if (rb1 === true) {
+				var stateSelected = this.getView().byId("comboDistrict").getSelectedItem().getKey();
+			}
+			var pincode = this.getView().byId("pin").getValue();
+
+			if (rb1 === true) {
+				if (DP1 === '') {
+					var msg = "Please fill the date";
+				}
+				if (stateSelected === undefined) {
+					msg = msg + " and State/District";
+				}
+
+				if (msg != '') {
+					MessageToast.show(msg);
+					return;
+				}
+
+			}
+
 			function getDate(that, n) {
-				// var that = this;
+
 				var sDate = that.getView().byId("DP1").getDateValue();
 				var today = new Date(sDate);
 				today.setDate(today.getDate() + n);
@@ -53,10 +82,9 @@ sap.ui.define([
 
 				return today;
 			}
-			if (rb1 === true) {
-				var stateSelected = this.getView().byId("comboDistrict").getSelectedItem().getKey();
-			}
-			var pincode = this.getView().byId("pin").getValue();
+
+			// var pinPath = "https://api.postalpincode.in/pincode/803101";
+			// var oPinCodeModel = new JSONModel(pinPath);
 
 			if ((stateSelected != '' && DP1 != '') || (pincode != '' && DP1 != '')) {
 
@@ -70,9 +98,6 @@ sap.ui.define([
 
 				}
 
-				//Get the data from API 
-				// var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=803101&date=04-06-2021";
-
 				var oPinModel = new JSONModel(sPath);
 				tableArray.push(oPinModel);
 				//Bind the data to the table
@@ -84,7 +109,6 @@ sap.ui.define([
 
 		onSelectRB: function (oEvent) {
 			var rb1 = this.getView().byId("RB1").getSelected();
-			// svar rb2 = this.getView().byId("RB2").getSelected();
 
 			if (rb1 === false) {
 				this.getView().byId("combo1").setEnabled(false);
@@ -105,22 +129,6 @@ sap.ui.define([
 			var oModelDistrict = new sap.ui.model.json.JSONModel(districtPath);
 			this.getView().byId("comboDistrict").setModel(oModelDistrict);
 
-		},
-
-		onNewFilter: function (oEvent) {
-			this.sSearchQuery = this.getView().getModel().getProperty("/recipient/name");
-			this.fnApplyFiltersAndOrdering();
-		},
-
-		fnApplyFiltersAndOrdering: function (oEvent) {
-			var aFilters = [];
-
-			if (this.sSearchQuery) {
-				var oFilter = new Filter("ShipperName", FilterOperator.Contains, this.sSearchQuery);
-				aFilters.push(oFilter);
-			}
-
-			this.byId("table1").getBinding("items").filter(aFilters);
 		},
 
 		onPress: function (oEvent) {
