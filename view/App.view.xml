@@ -1,48 +1,92 @@
 <mvc:View controllerName="my.Test.controller.App" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:u="sap.ui.unified"
 	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
 	<Shell >
-		<App id="App" class="sapUshellHeaderTitleColor">
-			<pages>
-				<Page title="CoWin App">
+		<!--<App id="App" class="sapUshellHeaderTitleColor">-->
+		<App id="App" class="myHeaderColor">
+			<pages >
+				<Page title="CoWin App" class="myColor">
 					<content>
-						<Panel>
+						<Panel >
 							<FlexBox fitContainer="true" justifyContent="Center">
-								<RadioButtonGroup id="rbg3" columns="3" valueState="Error" select="onSelectRB">
+								<RadioButtonGroup id="rbg3" columns="3" valueState="Success" select="onSelectRB">
 									<RadioButton id="RB1" text="Search by State / District" select="onSelectRB1"/>
 									<RadioButton id="RB2" text="Search by Pin code" select="onSelectRB2"/>
 								</RadioButtonGroup>
 							</FlexBox>
 						</Panel>
-						<FlexBox justifyContent="Center" alignItems="Start">
-							<Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
-								<!--<content>-->
-								<FlexBox justifyContent="Center" alignItems="Start">
-									<!--<Panel class="sapUiSizeCompact">-->
-									<ComboBox id="combo1" items="{ path: '/states', sorter: { path: 'state_name' } }" placeholder="State" class="sapUiSizeCompact"
-										change="onhandleChange">
-										<core:Item key="{state_id}" text="{state_name}"/>
-									</ComboBox>
-									<ComboBox id="comboDistrict" items="{ path: '/districts', sorter: { path: 'district_name' } }" placeholder="District"
-										class="sapUiSizeCompact">
-										<core:Item key="{district_id}" text="{district_name}"/>
-									</ComboBox>
-									<Input id="pin" width="auto" placeholder="Enter PinCode" class="sapUiSizeCompact"/>
-								</FlexBox>
-								<FlexBox justifyContent="Center" alignItems="Start">
-									<!--<VBox xmlns="sap.m" wrap="Wrap">-->
-									<!--<Text text="Date"/>-->
-									<DatePicker id="DP1" placeholder="Enter Date" change="handleChange" class="sapUiTinyMarginEnd"/>
-									<!--</VBox>-->
+						<Panel width="auto" class="myColor">
+							<FlexBox justifyContent="Center" alignItems="Start" class="myColor">
+								<Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
+									<!--<content>-->
+									<FlexBox justifyContent="Center" alignItems="Start">
+										<!--<Panel class="sapUiSizeCompact">-->
+										<ComboBox id="combo1" items="{ path: '/states', sorter: { path: 'state_name' } }" placeholder="State" class="sapUiSizeCompact"
+											change="onhandleChange">
+											<core:Item key="{state_id}" text="{state_name}"/>
+										</ComboBox>
+										<ComboBox id="comboDistrict" items="{ path: '/districts', sorter: { path: 'district_name' } }" placeholder="District"
+											class="sapUiSizeCompact">
+											<core:Item key="{district_id}" text="{district_name}"/>
+										</ComboBox>
+										<Input id="pin" width="60%" placeholder="Enter PinCode" class="sapUiSizeCompact"/>
+									</FlexBox>
 									<FlexBox justifyContent="Center" alignItems="Start">
 										<!--<VBox xmlns="sap.m" wrap="Wrap">-->
-										<Button text="Search" width="300px" press="onSearch"></Button>
+										<!--<Text text="Date"/>-->
+										<DatePicker id="DP1" placeholder="Enter Date" change="handleChange" class="sapUiTinyMarginEnd"/>
 										<!--</VBox>-->
+										<FlexBox justifyContent="Center" alignItems="Start">
+											<!--<VBox xmlns="sap.m" wrap="Wrap">-->
+											<Button text="Search" width="300px" press="onSearch"></Button>
+											<!--</VBox>-->
+										</FlexBox>
 									</FlexBox>
-								</FlexBox>
-								<!--</content>-->
-							</Panel>
-						</FlexBox>
+									<!--</content>-->
+								</Panel>
+							</FlexBox>
+						</Panel>
 						<Table id="table1" inset="false" class="sapUiSizeCompact" items="{/sessions}">
+							<!--<Panel>-->
+							<headerToolbar>
+								<OverflowToolbar>
+									<content>
+										<Title text="Vaccine Availibity Details" level="H2"/>
+										<ToolbarSpacer/>
+										<CheckBox id="chk18" text="18+" select="onSelectCheckbox"/>
+										<CheckBox id="chk45" text="45+" select="onSelectCheckbox"/>
+										<CheckBox id="chkcovaxin" text="Covaxin" select="onSelectCheckbox"/>
+										<CheckBox id="chkcovishield" text="Covishield" select="onSelectCheckbox"/>
+										<CheckBox id="chkfree" text="Free" select="onSelectCheckbox"/>
+										<CheckBox id="chkpaid" text="Paid" select="onSelectCheckbox"/>
+										<CheckBox id="chkdose1" text="Dose1" select="onSelectCheckbox"/>
+										<CheckBox id="chkdose2" text="Dose2" select="onSelectCheckbox"/>
+									</content>
+									<!--<content>-->
+									<!--	<Title text="Vaccine Availibility Details" width="100%" level="H2"/>-->
+									<!--	<HBox alignItems="Start" justifyContent="End" width="100%" class="sapUiTinyMargin">-->
+									<!--		<SegmentedButton id="seg" width="320px" selectionChange="setProductTypeFromSegmented">-->
+									<!--			<items>-->
+									<!--<SegmentedButtonItem icon="sap-icon://iphone" text="18+"/>-->
+									<!--				<SegmentedButtonItem  text="18+"/>-->
+									<!--				<SegmentedButtonItem  text="45+"/>-->
+									<!--<SegmentedButtonItem icon="sap-icon://database" text="Other"/>-->
+									<!--			</items>-->
+									<!--		</SegmentedButton>-->
+									<!--	</HBox>-->
+									<!--	<HBox alignItems="Start" justifyContent="Start" width="100%">-->
+									<!--	<SegmentedButton id="seg1" width="320px" selectionChange="setProductTypeFromSegmented">-->
+									<!--		<items>-->
+									<!--<SegmentedButtonItem icon="sap-icon://iphone" text="18+"/>-->
+									<!--			<SegmentedButtonItem  text="Covaxin"/>-->
+									<!--			<SegmentedButtonItem  text="Covishield"/>-->
+									<!--<SegmentedButtonItem icon="sap-icon://database" text="Other"/>-->
+									<!--		</items>-->
+									<!--	</SegmentedButton>-->
+									<!--</HBox>-->
+									<!--</content>-->
+								</OverflowToolbar>
+							</headerToolbar>
+							<!--</Panel>-->
 							<!--Column Header-->
 							<columns>
 								<Column importance="High" width="11rem">
