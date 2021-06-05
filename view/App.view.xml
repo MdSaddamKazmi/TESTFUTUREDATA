@@ -1,5 +1,5 @@
 <mvc:View controllerName="my.Test.controller.App" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:u="sap.ui.unified"
-	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">>
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
 	<Shell >
 		<App id="App" class="sapUshellHeaderTitleColor">
 			<pages>
@@ -13,38 +13,35 @@
 								</RadioButtonGroup>
 							</FlexBox>
 						</Panel>
-						<Panel class="sapUiSizeCompact">
-							<l:VerticalLayout class="sapUiContentPadding" width="100%">
-								<l:Grid class="sapUiSmallMarginBottom" hSpacing="0" vSpacing="0" defaultSpan="L4 M6 S12" width="100%">
-									<FlexBox class="sapUiTinyMarginBottom" direction="Column" fitContainer="true" alignItems="Start" justifyContent="Start" width="50%">
-										<Text text="States"/>
-										<ComboBox id="combo1" items="{ path: '/states', sorter: { path: 'state_name' } }" class="sapUiSizeCompact" change="onhandleChange">
+						<FlexBox justifyContent="Center" alignItems="Start">
+							<Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
+								<!--<content>-->
+									<FlexBox justifyContent="Center" alignItems="Start">
+										<!--<Panel class="sapUiSizeCompact">-->
+										<ComboBox id="combo1" items="{ path: '/states', sorter: { path: 'state_name' } }" placeholder="State" class="sapUiSizeCompact"
+											change="onhandleChange">
 											<core:Item key="{state_id}" text="{state_name}"/>
 										</ComboBox>
-										<VBox xmlns="sap.m" wrap="Wrap">
-											<Text text="Districts"/>
-											<ComboBox id="comboDistrict" items="{ path: '/districts', sorter: { path: 'district_name' } }" class="sapUiSizeCompact">
-												<core:Item key="{district_id}" text="{district_name}"/>
-											</ComboBox>
-										</VBox>
+										<ComboBox id="comboDistrict" items="{ path: '/districts', sorter: { path: 'district_name' } }" placeholder="District"
+											class="sapUiSizeCompact">
+											<core:Item key="{district_id}" text="{district_name}"/>
+										</ComboBox>
+										<Input id="pin" width="auto" placeholder="Enter PinCode" class="sapUiSizeCompact"/>
 									</FlexBox>
-									<FlexBox direction="Column" fitContainer="true" alignItems="Start" justifyContent="Start" width="50%">
-										<Text text="Pin Code"/>
-										<Input id="pin"  width="100%" class="sapUiSizeCompact"/>
+									<FlexBox justifyContent="Center" alignItems="Start">
+										<!--<VBox xmlns="sap.m" wrap="Wrap">-->
+											<!--<Text text="Date"/>-->
+											<DatePicker id="DP1" placeholder="Enter Date" change="handleChange" class="sapUiTinyMarginEnd" />
+										<!--</VBox>-->
+										<FlexBox justifyContent="Center" alignItems="Start">
+											<!--<VBox xmlns="sap.m" wrap="Wrap">-->
+												<Button text="Search" width="300px" press="onSearch"></Button>
+											<!--</VBox>-->
+										</FlexBox>
 									</FlexBox>
-									<FlexBox direction="Column" fitContainer="true" alignItems="Start" justifyContent="Center">
-										<VBox xmlns="sap.m" wrap="Wrap">
-											<Text text="Date"/>
-											<DatePicker id="DP1" placeholder="Enter Date" width="100%" 
-											 change="handleChange" class="sapUiSizeCompact"/>
-										</VBox>
-										<VBox xmlns="sap.m" wrap="Wrap">
-											<Button text="Search" width="220px" press="onSearch"></Button>
-										</VBox>
-									</FlexBox>
-								</l:Grid>
-							</l:VerticalLayout>
-						</Panel>
+								<!--</content>-->
+							</Panel>
+						</FlexBox>
 						<Table id="table1" inset="false" class="sapUiSizeCompact" items="{/sessions}">
 							<!--Column Header-->
 							<columns>
