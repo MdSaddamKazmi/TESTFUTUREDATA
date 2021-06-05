@@ -27,7 +27,7 @@ sap.ui.define([
 			var yyyy = today.getFullYear();
 
 			today = yyyy + mm + dd;
-return today;
+			return today;
 		},
 
 		onSearch: function (oEvent) {
@@ -35,29 +35,43 @@ return today;
 
 			var DP1 = this.getView().byId("DP1")._getInputValue();
 
-			// if (DP1 === '') {
-			// 	var msg = "Please fill the date";
-			// 	MessageToast.show(msg);
-			// 	return;
-			// }
-
 			var rb1 = this.getView().byId("RB1").getSelected();
 			var rb2 = this.getView().byId("RB2").getSelected();
 
 			if (rb1 === true) {
-				var stateSelected = this.getView().byId("comboDistrict").getSelectedItem().getKey();
+				// var stateSelected = this.getView().byId("comboDistrict").getSelectedItem().getKey();
+				var districtSelected = this.getView().byId("comboDistrict").getSelectedKey();
 			}
 			var pincode = this.getView().byId("pin").getValue();
 
+			var msg;
+
 			if (rb1 === true) {
 				if (DP1 === '') {
-					var msg = "Please fill the date";
-				}
-				if (stateSelected === undefined) {
-					msg = msg + " and State/District";
+					msg = "Please fill the date";
+				} else if (districtSelected === '') {
+					msg = "Please fill State/District";
+				} else if (districtSelected === '' && DP1 === '') {
+					msg = "Please fill date and State/District";
 				}
 
-				if (msg != '') {
+				if (msg !== '' && msg !== undefined) {
+					MessageToast.show(msg);
+					return;
+				}
+
+			}
+
+			if (rb2 === true) {
+				if (DP1 === '') {
+					msg = "Please fill the date";
+				} else if (pincode === '') {
+					msg = "Please fill PinCode";
+				} else if (pincode === '' && DP1 === '') {
+					msg = "Please fill date and Pincode";
+				}
+
+				if (msg !== '' && msg !== undefined) {
 					MessageToast.show(msg);
 					return;
 				}
@@ -86,11 +100,12 @@ return today;
 			// var pinPath = "https://api.postalpincode.in/pincode/803101";
 			// var oPinCodeModel = new JSONModel(pinPath);
 
-			if ((stateSelected != '' && DP1 != '') || (pincode != '' && DP1 != '')) {
+			if ((districtSelected != '' && DP1 != '') || (pincode != '' && DP1 != '')) {
 
 				if (rb1 === true) {
 
-					var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=" + stateSelected + "&date=" +
+					var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=" + districtSelected +
+						"&date=" +
 						getDate(this, 0);
 				} else if (rb2 === true) {
 
@@ -109,16 +124,20 @@ return today;
 
 		onSelectRB: function (oEvent) {
 			var rb1 = this.getView().byId("RB1").getSelected();
-
+			var table = this.getView().byId("table1");
 			if (rb1 === false) {
-				this.getView().byId("combo1").setEnabled(false);
-				this.getView().byId("comboDistrict").setEnabled(false);
-				this.getView().byId("pin").setEnabled(true);
-
+				this.getView().byId("combo1").setVisible(false);
+				this.getView().byId("comboDistrict").setVisible(false);
+				this.getView().byId("pin").setVisible(true);
+				this.getView().byId("pin").setValue("");
+				table.destroyItems(null);
 			} else {
-				this.getView().byId("combo1").setEnabled(true);
-				this.getView().byId("comboDistrict").setEnabled(true);
-				this.getView().byId("pin").setEnabled(false);
+				this.getView().byId("combo1").setVisible(true);
+				this.getView().byId("comboDistrict").setVisible(true);
+				this.getView().byId("pin").setVisible(false);
+				this.getView().byId("combo1").setValue("");
+				this.getView().byId("comboDistrict").setValue("");
+				table.destroyItems(null);
 			}
 		},
 
