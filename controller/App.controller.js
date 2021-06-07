@@ -4,8 +4,9 @@ sap.ui.define([
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	'sap/m/MessageToast',
-	"../formatter"
-], function (Controller, JSONModel, Filter, FilterOperator, MessageToast, formatter) {
+	"../formatter",
+	"sap/ui/model/Sorter"
+], function (Controller, JSONModel, Filter, FilterOperator, MessageToast, formatter, Sorter) {
 	"use strict";
 
 	return Controller.extend("my.Test.controller.App", {
@@ -18,6 +19,9 @@ sap.ui.define([
 			this.getView().byId("combo1").setModel(oModelState);
 			this.onSelectRB();
 			this.getView().byId("DP1").setValue(this.onGetDate());
+			this.bDescending = true;
+			// this.fnApplyFiltersAndOrdering();
+
 		},
 
 		onGetDate: function () {
@@ -30,11 +34,28 @@ sap.ui.define([
 			return today;
 		},
 
-		setProductTypeFromSegmented: function (oevent) {
-			var productType = oevent.getParameters().item.getText();
-			// this.model.setProperty("/productType", productType);
-			// this._wizard.validateStep(this.byId("ProductTypeStep"));
+		_fnGroup: function (oContext) {
+			var avalibility = oContext.getProperty("available_capacity");
+
+			return {
+				key: avalibility
+					// text: available_capacity
+			};
 		},
+
+		fnApplyFiltersAndOrdering: function (oEvent) {
+			var aSorters = [];
+
+			aSorters.push(new Sorter("available_capacity", this.bDescending));
+
+			this.byId("table1").getBinding("items").sort(aSorters);
+		},
+
+		// setProductTypeFromSegmented: function (oevent) {
+		// 	var productType = oevent.getParameters().item.getText();
+		// 	// this.model.setProperty("/productType", productType);
+		// 	// this._wizard.validateStep(this.byId("ProductTypeStep"));
+		// },
 
 		onSelectCheckbox: function (oEvent) {
 			// var filtermodel = new sap.ui.model.json.JSONModel();
@@ -178,7 +199,8 @@ sap.ui.define([
 				//Bind the data to the table
 				var table = this.getView().byId("table1");
 				table.setModel(tableArray[0]);
-
+				this.onSelectCheckbox();
+				this.fnApplyFiltersAndOrdering();
 			}
 		},
 
