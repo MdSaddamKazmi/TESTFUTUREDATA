@@ -132,6 +132,7 @@
 										enabled="{path:'available_capacity', formatter: '.formatter.link_enabled'}"/>
 								</cells>
 							</ColumnListItem>
+							
 						</Table>
 					</content>
 				</Page>
