@@ -47,7 +47,7 @@
 								</Panel>
 							</FlexBox>
 						</Panel>
-						<Table id="table1" inset="false" items="{/sessions}" class="sapUiSizeCompact ">
+						<Table id="table1" inset="false" items="{/sessions}" class="sapUiSizeCompact">
 							<!--<Panel>-->
 							<headerToolbar>
 								<OverflowToolbar>
