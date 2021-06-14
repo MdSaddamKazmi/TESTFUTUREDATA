@@ -55,3 +55,16 @@ color: #E8743B
 	position: relative;
 	right: -500px;
 }
+
+.myColumnFont{
+	
+	font-weight:bold;
+}
+
+.sapMListTbl  { 
+	font-weight: bold;
+}
+
+.sapMListTbl  .sapMLabel { 
+	font-weight: bold;
+} 
