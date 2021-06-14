@@ -54,6 +54,7 @@
 									<content>
 										<Title text="Vaccine Availibility Details" level="H2"/>
 										<ToolbarSpacer/>
+										<SearchField width="10%" search=".onFilterCentres"/>
 										<CheckBox id="chk18" text="18+" select="onSelectCheckbox"/>
 										<CheckBox id="chk45" text="45+" select="onSelectCheckbox"/>
 										<CheckBox id="chkcovaxin" text="Covaxin" select="onSelectCheckbox"/>
