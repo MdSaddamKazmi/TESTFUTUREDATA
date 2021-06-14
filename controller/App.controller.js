@@ -217,6 +217,12 @@ sap.ui.define([
 			var rb1 = this.getView().byId("RB1").getSelected();
 			var table = this.getView().byId("table1");
 			this.getView().byId("panel2").setExpanded(true);
+			
+			var tableArr = [];
+			var tableData = this.getView().byId("table1");
+			tableData.setModel(tableArr[0]);
+			table.destroyItems(null);
+			
 			if (rb1 === false) {
 				this.getView().byId("combo1").setVisible(false);
 				this.getView().byId("comboDistrict").setVisible(false);
