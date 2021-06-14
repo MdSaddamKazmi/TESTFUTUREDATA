@@ -54,6 +54,22 @@ sap.ui.define([
 		// 	// this.model.setProperty("/productType", productType);
 		// 	// this._wizard.validateStep(this.byId("ProductTypeStep"));
 		// },
+		
+		onFilterCentres : function (oEvent) {
+
+			// build filter array
+			var aFilter = [];
+			var sQuery = oEvent.getParameter("query");
+			if (sQuery) {
+				aFilter.push(new Filter("name", FilterOperator.Contains, sQuery));
+			}
+
+			// filter binding
+			var oList = this.byId("table1");
+			var oBinding = oList.getBinding("items");
+			oBinding.filter(aFilter);
+		},
+		
 
 		onSelectCheckbox: function (oEvent) {			
 			var filterArray = [];		
