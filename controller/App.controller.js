@@ -12,11 +12,15 @@ sap.ui.define([
 	return Controller.extend("my.Test.controller.App", {
 		formatter: formatter,
 		onInit: function () {
-		
+
+			// //	https://cdn-api.co-vin.in/api/v2/admin/location/districts/1
+
 			var oModelState = new JSONModel("https://cdn-api.co-vin.in/api/v2/admin/location/states");
 			this.getView().byId("combo1").setModel(oModelState);
-			this.onSelectRB();			
-			this.bDescending = true;			
+			this.onSelectRB();
+			//	this.getView().byId("DP1").setValue(this.onGetDate());
+			this.bDescending = true;
+			// this.fnApplyFiltersAndOrdering();
 			this.byId("DP1").setMinDate(new Date()).setValue(this.onGetDate());
 		},
 
@@ -24,7 +28,7 @@ sap.ui.define([
 			var date;
 			var today = new Date();
 			var dd = String(today.getDate()).padStart(2, '0');
-			var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+			var mm = String(today.getMonth() + 1).padStart(2, '0');
 			var yyyy = String(today.getFullYear());
 
 			var yy = yyyy.substr(2, 2);
@@ -37,7 +41,8 @@ sap.ui.define([
 			var avalibility = oContext.getProperty("available_capacity");
 
 			return {
-				key: avalibility					
+				key: avalibility
+					// text: available_capacity
 			};
 		},
 
@@ -54,12 +59,14 @@ sap.ui.define([
 		// 	// this.model.setProperty("/productType", productType);
 		// 	// this._wizard.validateStep(this.byId("ProductTypeStep"));
 		// },
-		
-		onFilterCentres : function (oEvent) {
+
+		onFilterCentres: function (oEvent) {
 
 			// build filter array
 			var aFilter = [];
-			var sQuery = oEvent.getParameter("query");
+			//	var sQuery = oEvent.getParameter("query");
+			// var sQuery = oEvent.getSource().getValue();
+			var sQuery = this.getView().byId("Search").getValue();
 			if (sQuery) {
 				aFilter.push(new Filter("name", FilterOperator.Contains, sQuery));
 			}
@@ -69,10 +76,11 @@ sap.ui.define([
 			var oBinding = oList.getBinding("items");
 			oBinding.filter(aFilter);
 		},
-		
 
-		onSelectCheckbox: function (oEvent) {			
-			var filterArray = [];		
+		onSelectCheckbox: function (oEvent) {
+			// var filtermodel = new sap.ui.model.json.JSONModel();
+			var filterArray = [];
+			// var oData1 = { filter: filterArray };
 			var oFilter;
 			var oBinding = this.getView().byId("table1").getBinding("items");
 
@@ -131,7 +139,8 @@ sap.ui.define([
 			var rb1 = this.getView().byId("RB1").getSelected();
 			var rb2 = this.getView().byId("RB2").getSelected();
 
-			if (rb1 === true) {				
+			if (rb1 === true) {
+				// var stateSelected = this.getView().byId("comboDistrict").getSelectedItem().getKey();
 				var districtSelected = this.getView().byId("comboDistrict").getSelectedKey();
 			}
 			var pincode = this.getView().byId("pin").getValue();
@@ -188,27 +197,30 @@ sap.ui.define([
 
 				return today;
 			}
-		
+
+			// var pinPath = "https://api.postalpincode.in/pincode/803101";
+			// var oPinCodeModel = new JSONModel(pinPath);
 
 			if ((districtSelected != '' && DP1 != '') || (pincode != '' && DP1 != '')) {
 
 				if (rb1 === true) {
 
-					var dataPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=" + districtSelected +
+					var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=" + districtSelected +
 						"&date=" +
 						getDate(this, 0);
 				} else if (rb2 === true) {
 
-					dataPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=" + pincode + "&date=" + getDate(this, 0);
+					sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=" + pincode + "&date=" + getDate(this, 0);
 
 				}
 
-				var oPinModel = new JSONModel(dataPath);
+				var oPinModel = new JSONModel(sPath);
 				tableArray.push(oPinModel);
 				//Bind the data to the table
 				var table = this.getView().byId("table1");
 				table.setModel(tableArray[0]);
 				this.onSelectCheckbox();
+				this.onFilterCentres(oEvent);
 				this.fnApplyFiltersAndOrdering();
 			}
 		},
@@ -217,19 +229,18 @@ sap.ui.define([
 			var rb1 = this.getView().byId("RB1").getSelected();
 			var table = this.getView().byId("table1");
 			this.getView().byId("panel2").setExpanded(true);
-			
+
 			var tableArr = [];
 			var tableData = this.getView().byId("table1");
 			tableData.setModel(tableArr[0]);
 			table.destroyItems(null);
-			
+
 			if (rb1 === false) {
 				this.getView().byId("combo1").setVisible(false);
 				this.getView().byId("comboDistrict").setVisible(false);
 				this.getView().byId("pin").setVisible(true);
 				this.getView().byId("pin").setValue("");
 
-				table.destroyItems(null);
 			} else {
 				this.getView().byId("combo1").setVisible(true);
 				this.getView().byId("comboDistrict").setVisible(true);
