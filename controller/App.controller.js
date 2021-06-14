@@ -60,22 +60,27 @@ sap.ui.define([
 		// 	// this._wizard.validateStep(this.byId("ProductTypeStep"));
 		// },
 
-		onFilterCentres: function (oEvent) {
+		// onFilterCentres: function (oEvent) {
 
-			// build filter array
-			var aFilter = [];
-			//	var sQuery = oEvent.getParameter("query");
-			// var sQuery = oEvent.getSource().getValue();
-			var sQuery = this.getView().byId("Search").getValue();
-			if (sQuery) {
-				aFilter.push(new Filter("name", FilterOperator.Contains, sQuery));
-			}
+		// 	// build filter array
+		// 	var aFilter = [];
+		// 	//	var sQuery = oEvent.getParameter("query");
+		// 	// var sQuery = oEvent.getSource().getValue();
+		// 	var sQuery = this.getView().byId("Search").getValue();
+		// 	if (sQuery) {
+		// 		aFilter.push(new Filter("name", FilterOperator.Contains, sQuery));
 
-			// filter binding
-			var oList = this.byId("table1");
-			var oBinding = oList.getBinding("items");
-			oBinding.filter(aFilter);
-		},
+		// 		// filter binding
+		// 		var oList = this.byId("table1");
+		// 		var oBinding = oList.getBinding("items");
+		// 		oBinding.filter(aFilter);
+
+		// 	} else if (sQuery == "") {
+		// 		this.onSelectCheckbox();
+
+		// 	}
+
+		// },
 
 		onSelectCheckbox: function (oEvent) {
 			// var filtermodel = new sap.ui.model.json.JSONModel();
@@ -85,6 +90,12 @@ sap.ui.define([
 			var oBinding = this.getView().byId("table1").getBinding("items");
 
 			oBinding.filter([]);
+			
+			var sQuery = this.getView().byId("Search").getValue();
+			if (sQuery) {
+				oFilter = new sap.ui.model.Filter("name", FilterOperator.Contains, sQuery);
+				filterArray.push(oFilter);
+			}
 
 			if (this.getView().byId("chk18").getSelected()) {
 				oFilter = new sap.ui.model.Filter("min_age_limit", "EQ", "18");
@@ -124,6 +135,8 @@ sap.ui.define([
 				filterArray.push(oFilter);
 			}
 			oBinding.filter(filterArray);
+
+			// this.onFilterCentres();
 
 		},
 
@@ -210,7 +223,8 @@ sap.ui.define([
 						getDate(this, 0);
 				} else if (rb2 === true) {
 
-					sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=" + pincode + "&date=" + getDate(this, 0);
+					sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=" + pincode + "&date=" + getDate(this,
+						0);
 
 				}
 
@@ -220,7 +234,7 @@ sap.ui.define([
 				var table = this.getView().byId("table1");
 				table.setModel(tableArray[0]);
 				this.onSelectCheckbox();
-				this.onFilterCentres(oEvent);
+				// this.onFilterCentres(oEvent);
 				this.fnApplyFiltersAndOrdering();
 			}
 		},
