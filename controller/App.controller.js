@@ -12,15 +12,11 @@ sap.ui.define([
 	return Controller.extend("my.Test.controller.App", {
 		formatter: formatter,
 		onInit: function () {
-
-			// //	https://cdn-api.co-vin.in/api/v2/admin/location/districts/1
-
+		
 			var oModelState = new JSONModel("https://cdn-api.co-vin.in/api/v2/admin/location/states");
 			this.getView().byId("combo1").setModel(oModelState);
-			this.onSelectRB();
-			//	this.getView().byId("DP1").setValue(this.onGetDate());
-			this.bDescending = true;
-			// this.fnApplyFiltersAndOrdering();
+			this.onSelectRB();			
+			this.bDescending = true;			
 			this.byId("DP1").setMinDate(new Date()).setValue(this.onGetDate());
 		},
 
@@ -41,8 +37,7 @@ sap.ui.define([
 			var avalibility = oContext.getProperty("available_capacity");
 
 			return {
-				key: avalibility
-					// text: available_capacity
+				key: avalibility					
 			};
 		},
 
@@ -60,10 +55,8 @@ sap.ui.define([
 		// 	// this._wizard.validateStep(this.byId("ProductTypeStep"));
 		// },
 
-		onSelectCheckbox: function (oEvent) {
-			// var filtermodel = new sap.ui.model.json.JSONModel();
-			var filterArray = [];
-			// var oData1 = { filter: filterArray };
+		onSelectCheckbox: function (oEvent) {			
+			var filterArray = [];		
 			var oFilter;
 			var oBinding = this.getView().byId("table1").getBinding("items");
 
@@ -122,8 +115,7 @@ sap.ui.define([
 			var rb1 = this.getView().byId("RB1").getSelected();
 			var rb2 = this.getView().byId("RB2").getSelected();
 
-			if (rb1 === true) {
-				// var stateSelected = this.getView().byId("comboDistrict").getSelectedItem().getKey();
+			if (rb1 === true) {				
 				var districtSelected = this.getView().byId("comboDistrict").getSelectedKey();
 			}
 			var pincode = this.getView().byId("pin").getValue();
@@ -180,24 +172,22 @@ sap.ui.define([
 
 				return today;
 			}
-
-			// var pinPath = "https://api.postalpincode.in/pincode/803101";
-			// var oPinCodeModel = new JSONModel(pinPath);
+		
 
 			if ((districtSelected != '' && DP1 != '') || (pincode != '' && DP1 != '')) {
 
 				if (rb1 === true) {
 
-					var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=" + districtSelected +
+					var dataPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=" + districtSelected +
 						"&date=" +
 						getDate(this, 0);
 				} else if (rb2 === true) {
 
-					sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=" + pincode + "&date=" + getDate(this, 0);
+					dataPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=" + pincode + "&date=" + getDate(this, 0);
 
 				}
 
-				var oPinModel = new JSONModel(sPath);
+				var oPinModel = new JSONModel(dataPath);
 				tableArray.push(oPinModel);
 				//Bind the data to the table
 				var table = this.getView().byId("table1");
