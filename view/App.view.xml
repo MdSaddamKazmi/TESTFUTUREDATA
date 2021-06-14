@@ -8,13 +8,15 @@
 					<content>
 						<Panel width="auto" >
 							<FlexBox fitContainer="true" justifyContent="Center" >
+								
 								<RadioButtonGroup id="rbg3" columns="3" valueState="Success" select="onSelectRB">
 									<RadioButton id="RB1" text="Search by State / District" select="onSelectRB1"/>
 									<RadioButton id="RB2" text="Search by Pin code" select="onSelectRB2"/>
 								</RadioButtonGroup>
+							
 							</FlexBox>
 						</Panel>
-						<Panel width="auto" class="myColor">
+						<Panel id="panel2" width="auto" class="myColor" expandable="true" headerText="Filters" expanded="true">
 							<FlexBox justifyContent="Center" alignItems="Start" class="myColor">
 								<Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
 									<!--<content>-->
@@ -33,7 +35,7 @@
 									<FlexBox justifyContent="Center" alignItems="Start" >
 										<!--<VBox xmlns="sap.m" wrap="Wrap">-->
 										<!--<Text text="Date"/>-->
-										<DatePicker id="DP1" placeholder="Enter Date" change="handleChange" displayFormat="long"  class="sapUiTinyMarginEnd"/>
+										<DatePicker id="DP1" placeholder="Enter Date"   displayFormat="long"  class="sapUiTinyMarginEnd" />
 										<!--</VBox>-->
 										<FlexBox justifyContent="Center" alignItems="Start">
 											<!--<VBox xmlns="sap.m" wrap="Wrap">-->
@@ -89,26 +91,26 @@
 							<!--</Panel>-->
 							<!--Column Header-->
 							<columns>
-								<Column importance="High" width="11rem">
-									<ObjectIdentifier text="Center"/>
+								<Column importance="High" width="11rem" >
+									<Label text="Centre"/>
 								</Column>
 								<Column minScreenWidth="Tablet">
-									<Text text="Vaccine"/>
+									<Label text="Vaccine"   />
 								</Column>
 								<Column >
-									<Text text="Availability"/>
+									<Label text="Availability"/>
+								</Column>
+								<Column minScreenWidth="Tablet" width="15rem">
+									<Label text="Availability by Dose"/>
 								</Column>
 								<Column minScreenWidth="Tablet">
-									<Text text="Availability by Dose"/>
+									<Label text="Age Limit"/>
 								</Column>
 								<Column minScreenWidth="Tablet">
-									<Text text="Age Limit"/>
-								</Column>
-								<Column minScreenWidth="Tablet">
-									<Text text="Fee Type"/>
+									<Label text="Fee Type"/>
 								</Column >
 								<Column importance="High">
-									<Text text="Book Slot"/>
+									<Label text="Book Slot"/>
 								</Column>
 							</columns>
 							<!-- Column data-->
@@ -122,11 +124,9 @@
 										icon="{path:'available_capacity', formatter: '.formatter.available_capacity_icon' }"/>
 									<ObjectStatus
 										state="{= ${available_capacity} !== 0 &amp;&amp; ${available_capacity} &gt; 5 ? 'Success' : ${available_capacity} &lt; 6 &amp;&amp; ${available_capacity} !== 0 ? 'Warning' : 'Error' }"
-										text="D1: {available_capacity_dose1} | D2: {available_capacity_dose2}"/>
+										text="Dose1: {available_capacity_dose1} | Dose2: {available_capacity_dose2}" />
 									<ObjectStatus state="Information" text="{min_age_limit}+"/>
 									<ObjectStatus state="{= ${fee_type} !== 'Free' ? 'Warning' : 'Success' }" text="{fee_type}"/>
-									<!--<Link text="{= ${available_capacity} !== 0 ? 'Book' : 'NA' }" href="https://selfregistration.cowin.gov.in/" target="_blank-->
-									<!--	enabled="{path:'available_capacity', formatter: '.formatter.link_enabled'}"/>-->
 									<Button text="{= ${available_capacity} !== 0 ? 'Book' : 'NA' }" press="onButtonPress"
 										enabled="{path:'available_capacity', formatter: '.formatter.link_enabled'}"/>
 								</cells>
