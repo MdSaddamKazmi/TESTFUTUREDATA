@@ -18,20 +18,23 @@ sap.ui.define([
 			var oModelState = new JSONModel("https://cdn-api.co-vin.in/api/v2/admin/location/states");
 			this.getView().byId("combo1").setModel(oModelState);
 			this.onSelectRB();
-			this.getView().byId("DP1").setValue(this.onGetDate());
+			//	this.getView().byId("DP1").setValue(this.onGetDate());
 			this.bDescending = true;
 			// this.fnApplyFiltersAndOrdering();
-
+			this.byId("DP1").setMinDate(new Date()).setValue(this.onGetDate());
 		},
 
 		onGetDate: function () {
+			var date;
 			var today = new Date();
 			var dd = String(today.getDate()).padStart(2, '0');
-			var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-			var yyyy = today.getFullYear();
+			var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+			var yyyy = String(today.getFullYear());
 
-			today = yyyy + mm + dd;
-			return today;
+			var yy = yyyy.substr(2, 2);
+
+			date = mm + "/" + dd + "/" + yy;
+			return date;
 		},
 
 		_fnGroup: function (oContext) {
@@ -207,11 +210,13 @@ sap.ui.define([
 		onSelectRB: function (oEvent) {
 			var rb1 = this.getView().byId("RB1").getSelected();
 			var table = this.getView().byId("table1");
+			this.getView().byId("panel2").setExpanded(true);
 			if (rb1 === false) {
 				this.getView().byId("combo1").setVisible(false);
 				this.getView().byId("comboDistrict").setVisible(false);
 				this.getView().byId("pin").setVisible(true);
 				this.getView().byId("pin").setValue("");
+
 				table.destroyItems(null);
 			} else {
 				this.getView().byId("combo1").setVisible(true);
@@ -219,6 +224,7 @@ sap.ui.define([
 				this.getView().byId("pin").setVisible(false);
 				this.getView().byId("combo1").setValue("");
 				this.getView().byId("comboDistrict").setValue("");
+
 				table.destroyItems(null);
 			}
 		},
