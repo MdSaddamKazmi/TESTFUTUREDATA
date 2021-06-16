@@ -68,3 +68,15 @@ color: #E8743B
 .sapMListTbl  .sapMLabel { 
 	font-weight: bold;
 } 
+
+
+.sapMSegB .sapMSegBBtn .sapMSegBBtnInner {
+	border : 0;
+
+}
+
+.sapMSegB .sapMSegBBtn{
+		padding-left:0;
+	padding-right:0;
+}
+
