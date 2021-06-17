@@ -37,13 +37,18 @@
 
   			vaccine_image: function (sValue) {
 
-  				if (sValue === "COVISHIELD") {
+  				if (sValue === null) {
+  					return null;
+  				} else {
+  					if (sValue === "COVISHIELD") {
 
-  					return "./images/covishield.jpg";
-  				} else if (sValue === "COVAXIN") {
+  						return "../images/covishield.jpg";
+  					} else if (sValue === "COVAXIN") {
 
-  					return "./images/covaxin.jpg";
+  						return "../images/covaxin.jpg";
+  					}
   				}
+
   			},
 
   			// eslint-disable-next-line camelcase
