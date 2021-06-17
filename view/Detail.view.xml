@@ -11,7 +11,7 @@
 		<ObjectHeader intro="{invoice>ShipperName}" title="{invoice>ProductName}"/>
 	</Page> -->
 	<App>
-		<Page navButtonPress="onNavBack" showNavButton="true" title="Test - Details" class="myColor sapUiresponsiveMargin">
+		<Page navButtonPress="onNavBack" showNavButton="true" title="Dashboard" class="myColor sapUiresponsiveMargin">
 			<!--<Text class="sapUiTinyMargin" text="{/invoicePath/ProductName}"/>-->
 			<!--<Text text="saddam"/>-->
 			<content>
