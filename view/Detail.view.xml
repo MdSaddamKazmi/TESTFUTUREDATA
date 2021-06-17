@@ -1,0 +1,143 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" controllerName="my.Test.controller.Detail" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m" xmlns:microchart="sap.suite.ui.microchart" xmlns:viz="sap.viz.ui5.controls" xmlns:layout="sap.ui.layout"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data">
+	<!--<mvc:View controllerName="my.Test.controller.Detail" -->
+	<!--xmlns="sap.m"  -->
+	<!--mlns:mvc="sap.ui.core.mvc" -->
+	<!--xmlns:viz="sap.viz.ui5.controls"-->
+	<!--xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"-->
+	<!--xmlns:viz.data="sap.viz.ui5.data">-->
+	<!--	<Page navButtonPress="onNavBack" showNavButton="true" title="Test - Details">
+		<ObjectHeader intro="{invoice>ShipperName}" title="{invoice>ProductName}"/>
+	</Page> -->
+	<App>
+		<Page navButtonPress="onNavBack" showNavButton="true" title="Test - Details" class="myColor sapUiresponsiveMargin">
+			<!--<Text class="sapUiTinyMargin" text="{/invoicePath/ProductName}"/>-->
+			<!--<Text text="saddam"/>-->
+			<content>
+				<!--<microchart:HarveyBallMicroChart size="XL" total="360" totalScale="Mrd" press="press">-->
+				<!--	<microchart:items>-->
+				<!--		<microchart:HarveyBallMicroChartItem fraction="78" color="Good" fractionScale="Mrd"/>-->
+				<!--	</microchart:items>-->
+				<!--</microchart:HarveyBallMicroChart>-->
+				<!--<FlexBox justifyContent="Center" class="responsive">-->
+				<FlexBox justifyContent="Center" class="responsive">
+					<ComboBox id="comboState" items="{ path: '/states', sorter: { path: 'state_name' } }" placeholder="State" change="onStateChange">
+						<core:Item key="{state_id}" text="{state_name}"/>
+					</ComboBox>
+					<ComboBox id="comboDistrict" items="{ path: '/districts', sorter: { path: 'district_name' } }" placeholder="District"
+						change="onDistrictChange">
+						<core:Item key="{district_id}" text="{district_name}"/>
+					</ComboBox>
+				</FlexBox>
+				<GenericTile header="Total doses - {local>/IndiaDetails/topBlock/vaccination/total_doses}" frameType="TwoByOne" press="press"
+					class="sapUiresponsiveMargin">
+					<tileContent>
+						<TileContent footer="Dose 1 : {local>/IndiaDetails/topBlock/vaccination/tot_dose_1}">
+							<content>
+								<microchart:HarveyBallMicroChart total="{local>/IndiaDetails/topBlock/vaccination/total_doses}" size="Responsive" alignContent="Right"
+									totalScale="Mrd">
+									<microchart:items>
+										<microchart:HarveyBallMicroChartItem fraction="{local>/IndiaDetails/topBlock/vaccination/tot_dose_1}" color="Good" fractionScale="Mrd"/>
+									</microchart:items>
+								</microchart:HarveyBallMicroChart>
+							</content>
+						</TileContent>
+						<TileContent footer="Dose 2 : {local>/IndiaDetails/topBlock/vaccination/tot_dose_2}">
+							<content>
+								<microchart:HarveyBallMicroChart total="{local>/IndiaDetails/topBlock/vaccination/total_doses}" size="Responsive" alignContent="Right"
+									totalScale="Mrd">
+									<microchart:items>
+										<microchart:HarveyBallMicroChartItem fraction="{local>/IndiaDetails/topBlock/vaccination/tot_dose_2}" color="Good" fractionScale="Mrd"/>
+									</microchart:items>
+								</microchart:HarveyBallMicroChart>
+							</content>
+						</TileContent>
+					</tileContent>
+				</GenericTile>
+				<!--</FlexBox>-->
+				<!--<FlexBox justifyContent="Center">-->
+				<GenericTile header="Total population vaccinated - {local>/IndiaDetails/topBlock/vaccination/total}" frameType="TwoByOne" press="press">
+					<tileContent>
+						<TileContent footer="Male : {local>/IndiaDetails/topBlock/vaccination/male}">
+							<content>
+								<microchart:HarveyBallMicroChart total="{local>/IndiaDetails/topBlock/vaccination/total}" size="Responsive" alignContent="Right"
+									totalScale="Mrd">
+									<microchart:items>
+										<microchart:HarveyBallMicroChartItem fraction="{local>/IndiaDetails/topBlock/vaccination/male}" color="Error" fractionScale="Mrd"/>
+									</microchart:items>
+								</microchart:HarveyBallMicroChart>
+							</content>
+						</TileContent>
+						<TileContent footer="Female : {local>/IndiaDetails/topBlock/vaccination/female}">
+							<content>
+								<microchart:HarveyBallMicroChart total="{local>/IndiaDetails/topBlock/vaccination/total}" size="Responsive" alignContent="Right"
+									totalScale="Mrd">
+									<microchart:items>
+										<microchart:HarveyBallMicroChartItem fraction="{local>/IndiaDetails/topBlock/vaccination/female}" color="Error" fractionScale="Mrd"/>
+									</microchart:items>
+								</microchart:HarveyBallMicroChart>
+							</content>
+						</TileContent>
+					</tileContent>
+				</GenericTile>
+				<!--</FlexBox>-->
+				<!--<FlexBox justifyContent="Center">-->
+				<GenericTile header="Total Sessions: {local>/IndiaDetails/topBlock/sessions/pvt} " frameType="OneByOne" press="press">
+					<tileContent>
+						<TileContent footer="">
+							<!--<microchart:ColumnMicroChart size="Responsive">-->
+							<!--	<microchart:columns>-->
+							<!--		<microchart:ColumnMicroChartData value="5" color="sapUiChartPaletteQualitativeHue1" label="test1"/>-->
+							<!--		<microchart:ColumnMicroChartData value="13" color="sapUiChartPaletteQualitativeHue1" label ="saddam"/>-->
+							<!--		<microchart:ColumnMicroChartData value="9" color="sapUiChartPaletteQualitativeHue1" label="kazmi"/>-->
+							<!--	</microchart:columns>-->
+							<!--</microchart:ColumnMicroChart>-->
+							<microchart:ComparisonMicroChart press="press" isResponsive="true">
+								<microchart:data>
+									<microchart:ComparisonMicroChartData title="Male" value="{local>/IndiaDetails/topBlock/sessions/total}" color="Good"/>
+									<microchart:ComparisonMicroChartData title="Female" value="{local>/IndiaDetails/topBlock/sessions/govt}" color="Error"/>
+								
+								</microchart:data>
+							</microchart:ComparisonMicroChart>
+						</TileContent>
+					</tileContent>
+				</GenericTile>
+				<GenericTile header="Total Sites: {local>/IndiaDetails/topBlock/sessions/total} " frameType="OneByOne" press="press">
+					<tileContent>
+						<TileContent footer="">
+							<microchart:ColumnMicroChart size="S" press="press" class="sapUiSmallMargin" allowColumnLabels="true">
+								<microchart:columns>
+									
+									<microchart:ColumnMicroChartData value="{local>/IndiaDetails/topBlock/sessions/govt}" label="Govt" color="Good"/>
+									<microchart:ColumnMicroChartData value="{local>/IndiaDetails/topBlock/sessions/pvt}" label="Pvt" color="Error"/>
+								</microchart:columns>
+							</microchart:ColumnMicroChart>
+						</TileContent>
+					</tileContent>
+				</GenericTile>
+				<!--<GenericTile header="Total Registration: {local>/IndiaDetails/topBlock/registration/total}" frameType="OneByOne" press="press">-->
+				<!--	<tileContent>-->
+				<!--		<TileContent footer="Blue 18+ : Orange 45+">-->
+							<!--<microchart:ColumnMicroChart size="S" press="press" class="sapUiSmallMargin" allowColumnLabels="true">-->
+							<!--	<microchart:columns>-->
+							<!--		<microchart:ColumnMicroChartData value="{local>/IndiaDetails/topBlock/registration/total}" label="Total" color="Good"/>-->
+							<!--		<microchart:ColumnMicroChartData value="{local>/IndiaDetails/topBlock/registration/city_18_45}" label="18+" color="Error"/>-->
+							<!--		<microchart:ColumnMicroChartData value="{local>/IndiaDetails/topBlock/registration/city_45_above}" label="45+"-->
+							<!--			color="sapUiChartPaletteQualitativeHue1"/>-->
+							<!--	</microchart:columns>-->
+							<!--</microchart:ColumnMicroChart>-->
+				<!--			<microchart:StackedBarMicroChart size="S" press="press" class="sapUiSmallMargin">-->
+				<!--				<microchart:bars>-->
+				<!--					<microchart:StackedBarMicroChartBar value="{local>/IndiaDetails/topBlock/registration/cit_18_45}"/>-->
+				<!--					<microchart:StackedBarMicroChartBar value="{local>/IndiaDetails/topBlock/registration/cit_45_above}"/>-->
+				<!--				</microchart:bars>-->
+				<!--			</microchart:StackedBarMicroChart>-->
+				<!--		</TileContent>-->
+				<!--	</tileContent>-->
+				<!--</GenericTile>-->
+				<!--</FlexBox>-->
+			</content>
+		</Page>
+	</App>
+</mvc:View>
