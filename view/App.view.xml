@@ -22,6 +22,9 @@
 						<Panel>
 							<content>
 								<FlexBox justifyContent="Center">
+									<Link text="Dashboard" press="onPress"/>
+								</FlexBox>
+								<FlexBox justifyContent="Center">
 									<!--<HBox alignItems="Start" justifyContent="Center">-->
 									<!--<InputListItem >-->
 									<SegmentedButton id="seg" selectionChange="onSelectSegment" selectedKey="pin">
@@ -91,7 +94,8 @@
 									<content>
 										<Title text="Vaccine Availibility" level="H2"/>
 										<ToolbarSpacer/>
-										<SearchField id="Search" width="10%" search="onSelectCheckbox" placeholder="Centre"/>
+										<SearchField id="Search" width="20%" search="onSelectCheckbox" placeholder="Centre"/>
+										<Button icon="sap-icon://excel-attachment" press="onExport" tooltip="Export data in excel"/>
 										<!--<CheckBox id="chk18" text="18+" select="onSelectCheckbox"/>-->
 										<!--<CheckBox id="chk45" text="45+" select="onSelectCheckbox"/>-->
 										<!--<CheckBox id="chkcovaxin" text="Covaxin" select="onSelectCheckbox"/>-->
@@ -350,7 +354,7 @@
 								</cells>
 							</ColumnListItem>
 						</Table>
-							<Table id="centertable4" inset="false" items="{local>/centers/sessions}" class="sapUiSizeCompact" visible="false" showNoData="false">
+						<Table id="centertable4" inset="false" items="{local>/centers/sessions}" class="sapUiSizeCompact" visible="false" showNoData="false">
 							<columns>
 								<Column width="10rem"></Column>
 								<Column minScreenWidth="Tablet"></Column>
@@ -379,8 +383,7 @@
 								</cells>
 							</ColumnListItem>
 						</Table>
-						
-							<Table id="centertable5" inset="false" items="{local>/centers/sessions}" class="sapUiSizeCompact" visible="false" showNoData="false">
+						<Table id="centertable5" inset="false" items="{local>/centers/sessions}" class="sapUiSizeCompact" visible="false" showNoData="false">
 							<columns>
 								<Column width="10rem"></Column>
 								<Column minScreenWidth="Tablet"></Column>
@@ -409,8 +412,7 @@
 								</cells>
 							</ColumnListItem>
 						</Table>
-						
-							<Table id="centertable6" inset="false" items="{local>/centers/sessions}" class="sapUiSizeCompact" visible="false" showNoData="false">
+						<Table id="centertable6" inset="false" items="{local>/centers/sessions}" class="sapUiSizeCompact" visible="false" showNoData="false">
 							<columns>
 								<Column width="10rem"></Column>
 								<Column minScreenWidth="Tablet"></Column>
@@ -439,9 +441,7 @@
 								</cells>
 							</ColumnListItem>
 						</Table>
-						
-						
-							<Table id="centertable7" inset="false" items="{local>/centers/sessions}" class="sapUiSizeCompact" visible="false" showNoData="false">
+						<Table id="centertable7" inset="false" items="{local>/centers/sessions}" class="sapUiSizeCompact" visible="false" showNoData="false">
 							<columns>
 								<Column width="10rem"></Column>
 								<Column minScreenWidth="Tablet"></Column>
@@ -470,8 +470,7 @@
 								</cells>
 							</ColumnListItem>
 						</Table>
-						
-							<Table id="centertable8" inset="false" items="{local>/centers/sessions}" class="sapUiSizeCompact" visible="false" showNoData="false">
+						<Table id="centertable8" inset="false" items="{local>/centers/sessions}" class="sapUiSizeCompact" visible="false" showNoData="false">
 							<columns>
 								<Column width="10rem"></Column>
 								<Column minScreenWidth="Tablet"></Column>
@@ -500,9 +499,7 @@
 								</cells>
 							</ColumnListItem>
 						</Table>
-						
-						
-							<Table id="centertable9" inset="false" items="{local>/centers/sessions}" class="sapUiSizeCompact" visible="false" showNoData="false">
+						<Table id="centertable9" inset="false" items="{local>/centers/sessions}" class="sapUiSizeCompact" visible="false" showNoData="false">
 							<columns>
 								<Column width="10rem"></Column>
 								<Column minScreenWidth="Tablet"></Column>
