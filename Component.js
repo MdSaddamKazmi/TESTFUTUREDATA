@@ -14,7 +14,7 @@ sap.ui.define([
 			// call the init function of the parent
 			UIComponent.prototype.init.apply(this, arguments);
 
-
+	this.getRouter().initialize();
 		}
 
 	});
