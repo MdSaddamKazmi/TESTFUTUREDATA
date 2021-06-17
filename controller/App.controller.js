@@ -3,15 +3,20 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
+		"sap/ui/export/library",
+	"sap/ui/export/Spreadsheet",
 	'sap/m/MessageToast',
 	"../formatter",
 	"sap/ui/model/Sorter"
-], function (Controller, JSONModel, Filter, FilterOperator, MessageToast, formatter, Sorter) {
+], function (Controller, JSONModel, Filter, FilterOperator, exportLibrary, Spreadsheet, MessageToast, formatter, Sorter) {
 	"use strict";
+
+	var EdmType = exportLibrary.EdmType;
 
 	return Controller.extend("my.Test.controller.App", {
 		formatter: formatter,
 		onInit: function () {
+
 
 			// //	https://cdn-api.co-vin.in/api/v2/admin/location/districts/1
 
@@ -54,9 +59,7 @@ sap.ui.define([
 			return date;
 		},
 
-		onBeforeRenderingDropdown: function () {
-			var name;
-		},
+
 
 		_fnGroup: function (oContext) {
 			var avalibility = oContext.getProperty("available_capacity");
@@ -493,6 +496,79 @@ sap.ui.define([
 			this.getView().byId("comboDistrict").setModel(oModelDistrict);
 
 		},
+		
+		createColumnConfig: function () {
+			var aCols = [];
+
+			aCols.push({
+				label: "Center name",
+				property: "name",
+				type: EdmType.String
+
+			});
+
+			aCols.push({
+				label: "Date",
+				type: EdmType.String,
+				property: "date"
+			});
+
+			aCols.push({
+				label: "Vaccine Name",
+				type: EdmType.String,
+				property: "vaccine"
+			});
+
+			aCols.push({
+				label: "Availability",
+				property: "available_capacity",
+				type: EdmType.String
+			});
+
+			aCols.push({
+				label: "Age Limit",
+				property: "min_age_limit",
+				type: EdmType.String
+			});
+
+			aCols.push({
+				label: "Fee type",
+				property: "fee_type",
+				type: EdmType.String
+			});
+
+
+
+			return aCols;
+		},
+		
+		
+		onExport: function () {
+			var aCols, oRowBinding, oSettings, oSheet, oTable;
+
+			if (!this._oTable) {
+				this._oTable = this.byId("table1");
+			}
+
+			oTable = this._oTable;
+			oRowBinding = oTable.getBinding("items");
+			aCols = this.createColumnConfig();
+
+			oSettings = {
+				workbook: {
+					columns: aCols,
+					hierarchyLevel: "Level"
+				},
+				dataSource: oRowBinding,
+				fileName: "Vaccine Availibility.xlsx",
+				worker: false // We need to disable worker because we are using a MockServer as OData Service
+			};
+
+			oSheet = new Spreadsheet(oSettings);
+			oSheet.build().finally(function () {
+				oSheet.destroy();
+			});
+		},		
 
 		onhandlecenter: function (oControlEvent) {
 			var pin = this.getView().byId("pin").getValue();
@@ -524,12 +600,10 @@ sap.ui.define([
 		},
 
 		onPress: function (oEvent) {
-			var spath = oEvent.getSource().getBindingContext("invoice").getPath();
-			var selectedPath = JSON.stringify(oEvent.getSource().getBindingContext("invoice").getProperty(spath));
+			// var spath = oEvent.getSource().getBindingContext("invoice").getPath();
+			// var selectedPath = JSON.stringify(oEvent.getSource().getBindingContext("invoice").getProperty(spath));
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("detail", {
-				"invoicePath": selectedPath
-			});
+			oRouter.navTo("detail");
 		}
 
 	});
