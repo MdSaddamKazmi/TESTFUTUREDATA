@@ -40,9 +40,9 @@
 					"bundleName": "my.Test.i18n.i18n"
 				}
 			},
-			"invoice": {
-				"type": "sap.ui.model.json.JSONModel",
-				"uri": "Invoices.json"
+			"local": {
+				"type": "sap.ui.model.json.JSONModel"
+
 			}
 
 		},
@@ -58,12 +58,12 @@
 				"routerClass": "sap.m.routing.Router",
 				"viewType": "XML",
 				"viewPath": "my.Test.view",
-
 				"controlId": "App",
 				"controlAggregation": "pages",
 				"async": true
 
 			},
+
 			"routes": [{
 					"pattern": "",
 					"name": "app",
@@ -72,7 +72,7 @@
 				},
 
 				{
-					"pattern": "detail/{invoicePath}",
+					"pattern": "detail",
 					"name": "detail",
 					"target": "detail"
 				}
@@ -80,12 +80,14 @@
 			"targets": {
 				"app": {
 					"viewId": "App",
-					"viewName": "App"
+					"viewName": "App",
+					"transition": "slide"
 
 				},
 				"detail": {
 					"viewId": "Detail",
-					"viewName": "Detail"
+					"viewName": "Detail",
+					"transition": "slide"
 
 				}
 			}
