@@ -1,7 +1,6 @@
 <mvc:View controllerName="my.Test.controller.App" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:u="sap.ui.unified"
 	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
 	<Shell >
-		<!--<App id="App" class="sapUshellHeaderTitleColor">-->
 		<App id="App" class="myHeaderColor">
 			<pages >
 				<Page title="Covid Vaccine App" class="myColor responsive">
@@ -21,8 +20,8 @@
 						<!--</Panel>-->
 						<Panel>
 							<content>
-								<FlexBox justifyContent="Center">
-									<Link text="Dashboard" press="onPress"/>
+								<FlexBox justifyContent="End">
+									<Link text="Go to Dashboard" press="onPress"/>
 								</FlexBox>
 								<FlexBox justifyContent="Center">
 									<!--<HBox alignItems="Start" justifyContent="Center">-->
@@ -37,18 +36,18 @@
 									<!--</InputListItem>-->
 									<!--</HBox>-->
 								</FlexBox>
-								<FlexBox justifyContent="Center">
-									<CheckBox id="chk18" text="18+" select="onSelectCheckbox"/>
-									<CheckBox id="chk45" text="45+" select="onSelectCheckbox"/>
-									<CheckBox id="chkpaid" text="Paid" select="onSelectCheckbox"/>
-									<CheckBox id="chkfree" text="Free" select="onSelectCheckbox"/>
-								</FlexBox>
-								<FlexBox justifyContent="Center">
-									<CheckBox id="chkcovishield" text="Covishield" select="onSelectCheckbox"/>
-									<CheckBox id="chkcovaxin" text="Covaxin" select="onSelectCheckbox"/>
-									<CheckBox id="chkdose1" text="Dose1" select="onSelectCheckbox"/>
-									<CheckBox id="chkdose2" text="Dose2" select="onSelectCheckbox"/>
-								</FlexBox>
+								<!--<FlexBox justifyContent="Center">-->
+								<!--	<CheckBox id="chk18" text="18+" select="onSelectCheckbox"/>-->
+								<!--	<CheckBox id="chk45" text="45+" select="onSelectCheckbox"/>-->
+								<!--	<CheckBox id="chkpaid" text="Paid" select="onSelectCheckbox"/>-->
+								<!--	<CheckBox id="chkfree" text="Free" select="onSelectCheckbox"/>-->
+								<!--</FlexBox>-->
+								<!--<FlexBox justifyContent="Center">-->
+								<!--	<CheckBox id="chkcovishield" text="Covishield" select="onSelectCheckbox"/>-->
+								<!--	<CheckBox id="chkcovaxin" text="Covaxin" select="onSelectCheckbox"/>-->
+								<!--	<CheckBox id="chkdose1" text="Dose1" select="onSelectCheckbox"/>-->
+								<!--	<CheckBox id="chkdose2" text="Dose2" select="onSelectCheckbox"/>-->
+								<!--</FlexBox>-->
 							</content>
 						</Panel>
 						<Panel id="panel2" width="auto" class="myColor" expandable="true" headerText="Filters" expanded="true">
@@ -78,12 +77,26 @@
 										<DatePicker id="DP1" placeholder="Enter Date" displayFormat="long" class="sapUiTinyMarginEnd"/>
 										<!--</VBox>-->
 										<FlexBox justifyContent="Center" alignItems="Start">
-											<!--<VBox xmlns="sap.m" wrap="Wrap">-->
-											<Button text="Search" width="auto" press="onSearch"></Button>
-											<!--</VBox>-->
+											<VBox xmlns="sap.m" wrap="Wrap">
+												<Button text="Search" width="auto" press="onSearch"></Button>
+											</VBox>
 										</FlexBox>
 									</FlexBox>
 									<!--</content>-->
+									<Panel>
+										<FlexBox justifyContent="Center" class="responsive">
+											<CheckBox id="chk18" text="18+" select="onSelectCheckbox"/>
+											<CheckBox id="chk45" text="45+" select="onSelectCheckbox"/>
+											<CheckBox id="chkpaid" text="Paid" select="onSelectCheckbox"/>
+											<CheckBox id="chkfree" text="Free" select="onSelectCheckbox"/>
+										</FlexBox>
+										<FlexBox justifyContent="Center" class="responsive">
+											<CheckBox id="chkcovishield" text="Covishield" select="onSelectCheckbox"/>
+											<CheckBox id="chkcovaxin" text="Covaxin" select="onSelectCheckbox"/>
+											<CheckBox id="chkdose1" text="Dose1" select="onSelectCheckbox"/>
+											<CheckBox id="chkdose2" text="Dose2" select="onSelectCheckbox"/>
+										</FlexBox>
+									</Panel>
 								</Panel>
 							</FlexBox>
 						</Panel>
