@@ -44,10 +44,10 @@ sap.ui.define([
 
 			this.byId("DP1").setMinDate(new Date()).setValue(this.onGetDPDate());
 
-			if (this.byId("seg").getSelectedKey() === "dis") {
-				this.getView().byId("chknext").setVisible(false);
+			// if (this.byId("seg").getSelectedKey() === "dis") {
+			// 	this.getView().byId("chknext").setVisible(false);
 
-			}
+			// }
 
 		},
 
@@ -651,7 +651,7 @@ sap.ui.define([
 			// tableData = this.getView().byId("centertable2");
 			// tableData.setModel(tableArr[0]);
 			// tableData.destroyItems(null);
-
+this.getView().byId("chknext").setSelected(false);
 			var oSegmentedButton = this.byId("seg").getSelectedKey();
 
 			if (oSegmentedButton === "pin") {
@@ -670,8 +670,8 @@ sap.ui.define([
 				this.getView().byId("pin").setVisible(false);
 				this.getView().byId("combo1").setValue("");
 				this.getView().byId("comboDistrict").setValue("");
-				this.getView().byId("chknext").setVisible(false);
-				this.getView().byId("chknext").setSelected(false);
+				// this.getView().byId("chknext").setVisible(false);
+				// this.getView().byId("chknext").setSelected(false);
 
 			}
 
