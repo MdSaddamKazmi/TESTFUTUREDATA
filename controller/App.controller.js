@@ -657,7 +657,7 @@ this.getView().byId("chknext").setSelected(false);
 			if (oSegmentedButton === "pin") {
 				this.getView().byId("combo1").setVisible(false);
 				this.getView().byId("comboDistrict").setVisible(false);
-				this.getView().byId("DP1").setVisible(true);
+this.getView().byId("DP1").setVisible(true);
 				this.getView().byId("pin").setVisible(true);
 				this.getView().byId("pin").setValue("");
 				this.getView().byId("chknext").setVisible(true);
