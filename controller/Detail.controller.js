@@ -22,12 +22,26 @@ sap.ui.define([
 			var oModelState = new JSONModel("https://cdn-api.co-vin.in/api/v2/admin/location/states");
 			this.getView().byId("comboState").setModel(oModelState);
 
+// test
+
+// var JSONQuery = new Object();
+// test
+
+
 			var that = this;
 			$.ajax("https://api.cowin.gov.in/api/v1/reports/v2/getPublicReports?state_id=&district_id=", {
 				type: "GET",
 				success: function (data) {
 
 					that.getOwnerComponent().getModel("local").setProperty("/IndiaDetails", data);
+					// for(var i = 0; i < data[0].length; i++) {
+						// var total = data.topBlock.sessions.total;
+						// if ( total > 5){
+						// 	JSONQuery = data;
+						// 	JSONQuery.topBlock.sessions.total = 50;
+						// 		that.getOwnerComponent().getModel("local").setProperty("/IndiaDetails", JSONQuery);
+						// }
+					// }
 				}
 
 			});
