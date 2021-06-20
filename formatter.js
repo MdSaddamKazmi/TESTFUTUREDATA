@@ -22,6 +22,14 @@
   				}
   				return sValue;
   			},
+  			
+  			//   			// eslint-disable-next-line camelcase
+  			// no_show: function () {
+
+  			// 	var oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+	    //          return  Boolean("true");
+  		
+  			// },
 
   			// eslint-disable-next-line camelcase
   			available_capacity_icon: function (sValue) {
