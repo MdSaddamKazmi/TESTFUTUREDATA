@@ -101,7 +101,7 @@
 								<Column minScreenWidth="Tablet">
 									<Label text="Vaccine"/>
 								</Column>
-								<Column width="6rem"  >
+								<Column  >
 									<Label text="Availability"/>
 								</Column>
 								<Column minScreenWidth="Tablet">
@@ -210,7 +210,7 @@
 								<Column minScreenWidth="Tablet">
 									<Label text="Vaccine"/>
 								</Column>
-								<Column width="6rem" >
+								<Column >
 									<Label text="Availability"/>
 								</Column>
 								<Column minScreenWidth="Tablet">
