@@ -3,9 +3,9 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-		"sap/ui/export/library",
+	"sap/ui/export/library",
 	"sap/ui/export/Spreadsheet",
-	'sap/m/MessageToast',
+	"sap/m/MessageToast",
 	"../formatter",
 	"sap/ui/model/Sorter"
 ], function (Controller, JSONModel, Filter, FilterOperator, exportLibrary, Spreadsheet, MessageToast, formatter, Sorter) {
@@ -16,7 +16,6 @@ sap.ui.define([
 	return Controller.extend("my.Test.controller.App", {
 		formatter: formatter,
 		onInit: function () {
-
 
 			// //	https://cdn-api.co-vin.in/api/v2/admin/location/districts/1
 
@@ -35,18 +34,24 @@ sap.ui.define([
 			// 	}
 			// });
 
-			this.byId('combo1').setSelectedKey(null);
+			this.byId("combo1").setSelectedKey(null);
 			// this.onSelectRB();
-			this.byId('seg').setSelectedKey("dis");
+			this.byId("seg").setSelectedKey("dis");
 			this.onSelectSegment();
-			this.getView().byId("DP1").setValue(this.onGetDate());
-
+			// this.getView().byId("DP1").setValue(this.onGetDate());
+			// this.getView().byId("comboCentre").setVisible(false);
 			this.bDescending = true;
-			// this.fnApplyFiltersAndOrdering();
-			this.byId("DP1").setMinDate(new Date()).setValue(this.onGetDate());
+
+			this.byId("DP1").setMinDate(new Date()).setValue(this.onGetDPDate());
+
+			if (this.byId("seg").getSelectedKey() === "dis") {
+				this.getView().byId("chknext").setVisible(false);
+
+			}
+
 		},
 
-		onGetDate: function () {
+		onGetDPDate: function () {
 			var date;
 			var today = new Date();
 			var dd = String(today.getDate()).padStart(2, '0');
@@ -58,8 +63,6 @@ sap.ui.define([
 			date = mm + "/" + dd + "/" + yy;
 			return date;
 		},
-
-
 
 		_fnGroup: function (oContext) {
 			var avalibility = oContext.getProperty("available_capacity");
@@ -75,78 +78,62 @@ sap.ui.define([
 
 			aSorters.push(new Sorter("available_capacity", this.bDescending));
 
-			if (this.byId('seg').getSelectedKey() !== "available") {
+			if (this.getView().byId("chknext").getSelected() === false) {
 				this.byId("table1").getBinding("items").sort(aSorters);
-			} else {
-				// this.byId("centertable").getBinding("items").sort(aSorters);
 			}
+			// else {
+			// this.byId("centertable").getBinding("items").sort(aSorters);
+			// }
 		},
 
-		// setProductTypeFromSegmented: function (oevent) {
-		// 	var productType = oevent.getParameters().item.getText();
-		// 	// this.model.setProperty("/productType", productType);
-		// 	// this._wizard.validateStep(this.byId("ProductTypeStep"));
-		// },
-
-		// onFilterCentres: function (oEvent) {
-
-		// 	// build filter array
-		// 	var aFilter = [];
-		// 	//	var sQuery = oEvent.getParameter("query");
-		// 	// var sQuery = oEvent.getSource().getValue();
-		// 	var sQuery = this.getView().byId("Search").getValue();
-		// 	if (sQuery) {
-		// 		aFilter.push(new Filter("name", FilterOperator.Contains, sQuery));
-
-		// 		// filter binding
-		// 		var oList = this.byId("table1");
-		// 		var oBinding = oList.getBinding("items");
-		// 		oBinding.filter(aFilter);
-
-		// 	} else if (sQuery == "") {
-		// 		this.onSelectCheckbox();
-
-		// 	}
-
-		// },
-
 		onSelectCheckbox: function (oEvent) {
-			// var filtermodel = new sap.ui.model.json.JSONModel();
+
 			var filterArray = [];
-			// var oData1 = { filter: filterArray };
+
 			var oFilter;
 
 			var oSegmentedButton = this.byId('seg').getSelectedKey();
 
-			if (oSegmentedButton === "pin" || oSegmentedButton === "dis") {
+			if ((oSegmentedButton === "pin" || oSegmentedButton === "dis") && (this.getView().byId("chknext").getSelected() === false)) {
 
 				var oBinding = this.getView().byId("table1").getBinding("items");
 				oBinding.filter([]);
-			} else if (oSegmentedButton === "available") {
-				var oBinding1 = this.getView().byId("centertable").getBinding("items");
-				var oBinding2 = this.getView().byId("centertable1").getBinding("items");
-				var oBinding3 = this.getView().byId("centertable2").getBinding("items");
-				var oBinding4 = this.getView().byId("centertable2").getBinding("items");
-				var oBinding5 = this.getView().byId("centertable2").getBinding("items");
-				var oBinding6 = this.getView().byId("centertable2").getBinding("items");
-				var oBinding7 = this.getView().byId("centertable2").getBinding("items");
-				var oBinding8 = this.getView().byId("centertable2").getBinding("items");
-				var oBinding9 = this.getView().byId("centertable2").getBinding("items");
-				oBinding1.filter([]);
-				oBinding2.filter([]);
-				oBinding3.filter([]);
-				oBinding4.filter([]);
-				oBinding5.filter([]);
-				oBinding6.filter([]);
-				oBinding7.filter([]);
-				oBinding8.filter([]);
-				oBinding9.filter([]);
+			} else if (this.getView().byId("chknext").getSelected()) {
+				var oBindingNew = this.getView().byId("table2").getBinding("items");
+				// var oBinding1 = this.getView().byId("centertable").getBinding("items");
+				// var oBinding2 = this.getView().byId("centertable1").getBinding("items");
+				// var oBinding3 = this.getView().byId("centertable3").getBinding("items");
+				// var oBinding4 = this.getView().byId("centertable4").getBinding("items");
+				// var oBinding5 = this.getView().byId("centertable5").getBinding("items");
+				// var oBinding6 = this.getView().byId("centertable6").getBinding("items");
+				// var oBinding7 = this.getView().byId("centertable7").getBinding("items");
+				// var oBinding8 = this.getView().byId("centertable8").getBinding("items");
+				// var oBinding9 = this.getView().byId("centertable9").getBinding("items");
+				oBindingNew.filter([]);
+				// oBinding1.filter([]);
+				// oBinding2.filter([]);
+				// oBinding3.filter([]);
+				// oBinding4.filter([]);
+				// oBinding5.filter([]);
+				// oBinding6.filter([]);
+				// oBinding7.filter([]);
+				// oBinding8.filter([]);
+				// oBinding9.filter([]);
+
 			}
 
 			var sQuery = this.getView().byId("Search").getValue();
 			if (sQuery) {
 				oFilter = new sap.ui.model.Filter("name", FilterOperator.Contains, sQuery);
 				filterArray.push(oFilter);
+			}
+
+			if (this.getView().byId("chknext").getSelected()) {
+				sQuery = this.getView().byId("Search1").getValue();
+				if (sQuery) {
+					oFilter = new sap.ui.model.Filter("name", FilterOperator.Contains, sQuery);
+					filterArray.push(oFilter);
+				}
 			}
 
 			if (this.getView().byId("chk18").getSelected()) {
@@ -166,6 +153,11 @@ sap.ui.define([
 
 			if (this.getView().byId("chkcovishield").getSelected()) {
 				oFilter = new sap.ui.model.Filter("vaccine", "EQ", "COVISHIELD");
+				filterArray.push(oFilter);
+			}
+
+			if (this.getView().byId("chksputnik").getSelected()) {
+				oFilter = new sap.ui.model.Filter("vaccine", "EQ", "SPUTNIK");
 				filterArray.push(oFilter);
 			}
 
@@ -190,22 +182,58 @@ sap.ui.define([
 			oFilter = new sap.ui.model.Filter("available_capacity", "NE", "0");
 			filterArray.push(oFilter);
 
-			if (oSegmentedButton === "pin" || oSegmentedButton === "dis") {
+			if (this.getView().byId("chknext").getSelected() === false) {
 
 				oBinding.filter(filterArray);
-			} else if (oSegmentedButton === "available") {
-				oBinding1.filter(filterArray);
-				oBinding2.filter(filterArray);
-				oBinding3.filter(filterArray);
-				oBinding4.filter(filterArray);
-				oBinding5.filter(filterArray);
-				oBinding6.filter(filterArray);
-				oBinding7.filter(filterArray);
-				oBinding8.filter(filterArray);
-				oBinding9.filter(filterArray);
+			} else if (this.getView().byId("chknext").getSelected()) {
+				oBindingNew.filter(filterArray);
+				// oBinding1.filter(filterArray);
+				// oBinding2.filter(filterArray);
+				// oBinding3.filter(filterArray);
+				// oBinding4.filter(filterArray);
+				// oBinding5.filter(filterArray);
+				// oBinding6.filter(filterArray);
+				// oBinding7.filter(filterArray);
+				// oBinding8.filter(filterArray);
+				// oBinding9.filter(filterArray);
+
 			}
 
-			// this.onFilterCentres();
+		},
+
+		onCheckFuture: function (oEvent) {
+
+			if (this.getView().byId("chknext").getSelected()) {
+				// this.getView().byId("comboCentre").setVisible(true);
+				this.getView().byId("DP1").setVisible(false);
+
+			} else {
+
+				// this.getView().byId("comboCentre").setVisible(false);
+				this.getView().byId("DP1").setVisible(true);
+			}
+
+			// this.getView().byId("centertable").setVisible(false);
+
+			this.getView().byId("table1").setVisible(false);
+			this.getView().byId("table2").setVisible(false);
+
+			var tableArr = [];
+			// var tableData = this.getView().byId("centertable");
+			// tableData.setModel(tableArr[0]);
+			// tableData.destroyItems(null);
+
+			var tableData = this.getView().byId("table1");
+			tableData.setModel(tableArr[0]);
+			tableData.destroyItems(null);
+
+			tableData = this.getView().byId("table2");
+			tableData.setModel(tableArr[0]);
+			tableData.destroyItems(null);
+
+			// tableData = this.getView().byId("centertable1");
+			// tableData.setModel(tableArr[0]);
+			// tableData.destroyItems(null);
 
 		},
 
@@ -218,28 +246,32 @@ sap.ui.define([
 
 			var DP1 = this.getView().byId("DP1")._getInputValue();
 
-			var oSegmentedButton = this.byId('seg').getSelectedKey();
-
-			// var rb1 = this.getView().byId("RB1").getSelected();
-			// var rb2 = this.getView().byId("RB2").getSelected();
+			var oSegmentedButton = this.byId("seg").getSelectedKey();
 
 			if (oSegmentedButton === "dis") {
-				// var stateSelected = this.getView().byId("comboDistrict").getSelectedItem().getKey();
+
+				var stateSelected = this.getView().byId("combo1").getSelectedKey();
 				var districtSelected = this.getView().byId("comboDistrict").getSelectedKey();
-			} else if (oSegmentedButton === "available") {
-				var centerSelected = this.getView().byId("comboCentre").getSelectedKey();
 			}
-			var pincode = this.getView().byId("pin").getValue();
+
+			// if (this.getView().byId("chknext").getSelected()) {
+			// 	var centerSelected = this.getView().byId("comboCentre").getSelectedKey();
+			// }
+
+			if (oSegmentedButton === "pin") {
+				var pincode = this.getView().byId("pin").getValue();
+			}
 
 			var msg;
 
 			if (oSegmentedButton === "dis") {
-				if (DP1 === '') {
-					msg = "Please fill the date";
+				if (districtSelected === '' && stateSelected === '') {
+					msg = "Please fill State and District";
+				} else if (stateSelected === '') {
+					msg = "Please fill State";
+
 				} else if (districtSelected === '') {
-					msg = "Please fill State/District";
-				} else if (districtSelected === '' && DP1 === '') {
-					msg = "Please fill date and State/District";
+					msg = "Please fill District";
 				}
 
 				if (msg !== '' && msg !== undefined) {
@@ -250,12 +282,8 @@ sap.ui.define([
 			}
 
 			if (oSegmentedButton === "pin") {
-				if (DP1 === '') {
-					msg = "Please fill the date";
-				} else if (pincode === '') {
+				if (pincode === '') {
 					msg = "Please fill PinCode";
-				} else if (pincode === '' && DP1 === '') {
-					msg = "Please fill date and Pincode";
 				}
 
 				if (msg !== '' && msg !== undefined) {
@@ -264,6 +292,27 @@ sap.ui.define([
 				}
 
 			}
+
+			if (this.getView().byId("chknext").getSelected() === false) {
+
+				if (DP1 === '') {
+					msg = "Please fill date";
+				}
+
+				if (msg !== '' && msg !== undefined) {
+					MessageToast.show(msg);
+					return;
+				}
+
+			}
+
+			// if (this.getView().byId("chknext").getSelected()) {
+			// 	if (centerSelected === "") {
+			// 		msg = "Please fill centre";
+			// 		MessageToast.show(msg);
+			// 		return;
+			// 	}
+			// }
 
 			function getDate(that, n) {
 
@@ -284,207 +333,352 @@ sap.ui.define([
 				return today;
 			}
 
-			// var pinPath = "https://api.postalpincode.in/pincode/803101";
-			// var oPinCodeModel = new JSONModel(pinPath);
+			if ((districtSelected != '') || (pincode != '')) {
 
-			if ((districtSelected != '' && DP1 != '') || (pincode != '' && DP1 != '')) {
+				if (this.getView().byId("chknext").getSelected() === false) {
+					if (oSegmentedButton === "dis") {
 
-				if (oSegmentedButton === "dis") {
+						var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=" + districtSelected +
+							"&date=" +
+							getDate(this, 0);
 
-					var sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=" + districtSelected +
-						"&date=" +
-						getDate(this, 0);
-				} else if (oSegmentedButton === "pin") {
+						
+					} else if (oSegmentedButton === "pin") {
 
-					sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=" + pincode + "&date=" + getDate(this,
-						0);
+						sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=" + pincode + "&date=" + getDate(this,
+							0);
 
+					}
 				}
-				// else if (oSegmentedButton === "available") {
 
-				// sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByCenter?center_id=" + centerSelected + "&date=" +
-				// 	getDate(this,
-				// 		0);
-				// }
+				if ((oSegmentedButton === "dis" || oSegmentedButton === "pin") && this.getView().byId("chknext").getSelected() === false) {
 
-				if (oSegmentedButton === "dis" || oSegmentedButton === "pin") {
 					var oPinModel = new JSONModel(sPath);
 					tableArray.push(oPinModel);
 					//Bind the data to the table
 					var table = this.getView().byId("table1");
 					table.setModel(tableArray[0]);
 					this.getView().byId("table1").setVisible(true);
-					this.getView().byId("centertable").setVisible(false);
+					// this.getView().byId("centertable").setVisible(false);
+					this.getView().byId("table2").setVisible(false);
 				}
-				if (oSegmentedButton === "available") {
-					var i = 0;
-					do {
-						sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByCenter?center_id=" + centerSelected + "&date=" +
-							getDate(this,
-								i);
 
-						var ocenterModel = new JSONModel(sPath);
-						tableArray.push(ocenterModel);
-						i = i + 7;
+				if (this.getView().byId("chknext").getSelected()) {
+					//---------------------------------------------------------------------------------------------//
+					// // test 
+					var JSONQuery = [];
+					// var indicator;
+					var arr = {
+						centers: []
+					};
+					var that = this;
+					var n = 1;
+					var p = 0;
+
+					// var oData = {
+					// 	centers: {
+					// 		centerid: "",
+					// 		name: "",
+					// 		address:""
+
+					// 	}
+					// };
+
+					var ctr = [];
+
+					// var     cntr ={
+
+					// 	    name: "",
+					// 	    address: "",
+					// 	    available_capacity: "",
+					// 	    fee_type : "",
+					// 	     block_name: "", 
+					// 	     district_name: "",
+					// 	     state_name: "",
+					// 	     pincode: "",
+					// 	     date:"",
+					// 	     vaccine:"",
+					// 	     available_capacity_dose1: "",
+					// 	     available_capacity_dose2: "",
+					// 	     min_age_limit:""
+
+					// 	};
+
+					do {
+
+						if (oSegmentedButton === "pin") {
+
+							sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=" + pincode + "&date=" +
+								getDate(this, n);
+						} else if (oSegmentedButton === "dis") {
+
+							sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=" + districtSelected +
+								"&date=" +
+								getDate(this, n);
+						}
+
+						// sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByCenter?center_id=" + centerSelected + "&date=" +
+						// getDate(this, n);
+						$.ajax(sPath, {
+							type: "GET",
+							success: function (data) {
+								// var oModelState = new JSONModel();
+
+								// JSONQuery = data;
+								// JSONQuery.centers.setData(data.centers);
+								// Object.assign(oData, data.centers);
+
+								// JSONQuery = data.centers;
+								p = p + 1;
+
+								for (var i = 0; i < data.centers.length; i++) {
+									//JSONQuery.push(data.centers[i]);
+
+									for (var j = 0; j < data.centers[i].sessions.length; j++) {
+
+										var cntr = {
+
+											name: "",
+											address: "",
+											available_capacity: "",
+											fee_type: "",
+											block_name: "",
+											district_name: "",
+											state_name: "",
+											pincode: "",
+											date: "",
+											vaccine: "",
+											available_capacity_dose1: "",
+											available_capacity_dose2: "",
+											min_age_limit: ""
+
+										};
+
+										cntr.name = data.centers[i].name;
+										cntr.address = data.centers[i].address;
+										cntr.fee_type = data.centers[i].fee_type;
+										cntr.block_name = data.centers[i].block_name;
+										cntr.district_name = data.centers[i].district_name;
+										cntr.state_name = data.centers[i].state_name;
+										cntr.pincode = data.centers[i].pincode;
+
+										cntr.available_capacity = data.centers[i].sessions[j].available_capacity;
+										cntr.available_capacity_dose1 = data.centers[i].sessions[j].available_capacity_dose1;
+										cntr.available_capacity_dose2 = data.centers[i].sessions[j].available_capacity_dose2;
+										cntr.date = data.centers[i].sessions[j].date;
+										cntr.vaccine = data.centers[i].sessions[j].vaccine;
+										cntr.min_age_limit = data.centers[i].sessions[j].min_age_limit;
+
+										ctr.push(cntr);
+
+										//arr.centers.push(cntr);
+									}
+
+								}
+
+								if (p === 12) {
+
+									// $.extend(arr, ctr);
+									//that.getOwnerComponent().getModel("local").setProperty("/centreData", arr.centers);
+									that.getOwnerComponent().getModel("local").setProperty("/centreData", ctr);
+
+									var ocontact_data_Model = new sap.ui.model.json.JSONModel();
+									ocontact_data_Model.setData("local");
+									ocontact_data_Model.setSizeLimit(20000); //Size Limit 
+
+									// 						var tt = [];
+									// 							var testing= new JSONModel(ctr);
+									// 							tt.push(testing);
+
+									// 							var tablenew = that.getView().byId("testing");
+									// tablenew.setModel(tableArray[0], "local");
+
+								}
+
+								// 			// jQuery.each(data, function (index, item) {
+								// 			//now you can access properties using dot notation
+								// 			// var test = item.centers; 
+
+								// 			for (var i = 0; i < data.centers.sessions.length; i++) {
+
+								// 				if (data.centers.sessions[i].available_capacity != 0) {
+								// 					indicator = true;
+
+								// 				}
+
+								// 			}
+								// 			// oModelState.setData(item);
+
+								// 			// tableArray.push(oModelState);
+								// 			//Bind the data to the table
+								// 			// var table = that.getView().byId("centertable");
+								// 			// table.setModel(tableArray[0], "local");
+
+								// 			// });
+
+								// 			// JSONQuery.topBlock.sessions.total = 50;
+								// 			if (indicator === true) {
+								// that.getOwnerComponent().getModel("local").setProperty("/centreData", JSONQuery);
+
+								// 				that.onSelectCheckbox();
+
+							}
+						});
+
+						// 		},
+						// 		error: function (oErr) {
+
+						// 			// MessageToast.show("Failed to Load Data");
+						// 			var name = 'test';
+						// 		}
+
+						// 	});
+
+						n = n + 7;
+
+						// 	if (indicator === true) {
+						// 		break;
+						// 	}
+
 					}
-					while (i < 71);
+					while (n < 102);
+
+					// this.getView().byId("table1").setVisible(false);
+					// this.getView().byId("centertable").setVisible(true);
+
+					//----------------------------------------------------------------------------//
+
+					// var i = 0;
+					// do {
+					// 	sPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByCenter?center_id=" + centerSelected +
+					// 		"&date=" +
+					// 		getDate(this,
+					// 			i);
+
+					// 	var ocenterModel = new JSONModel(sPath);
+
+					// 	// test start
+					// 	// var test = new JSONModel();
+					// 	// test.push(ocenterModel);
+
+					// 	// test end
+
+					// 	tableArray.push(ocenterModel);
+					// 	i = i + 7;
+
+					// } while (i < 71);
 
 					//Bind the data to the table
-					var tablenew = this.getView().byId("centertable");
-					tablenew.setModel(tableArray[0], "local");
+					// var tablenew = this.getView().byId("centertable");
+					// tablenew.setModel(tableArray[0], "local");
 
-					// test
-					var tablenew1 = this.getView().byId("centertable1");
-					tablenew1.setModel(tableArray[1], "local");
+					// // test
+					// var tablenew1 = this.getView().byId("centertable1");
+					// tablenew1.setModel(tableArray[1], "local");
 
-					var tablenew2 = this.getView().byId("centertable2");
-					tablenew2.setModel(tableArray[2], "local");
+					// var tablenew2 = this.getView().byId("centertable2");
+					// tablenew2.setModel(tableArray[2], "local");
 
-					var tablenew3 = this.getView().byId("centertable3");
-					tablenew3.setModel(tableArray[3], "local");
+					// var tablenew3 = this.getView().byId("centertable3");
+					// tablenew3.setModel(tableArray[3], "local");
 
-					var tablenew4 = this.getView().byId("centertable4");
-					tablenew4.setModel(tableArray[4], "local");
+					// var tablenew4 = this.getView().byId("centertable4");
+					// tablenew4.setModel(tableArray[4], "local");
 
-					var tablenew5 = this.getView().byId("centertable5");
-					tablenew5.setModel(tableArray[5], "local");
+					// var tablenew5 = this.getView().byId("centertable5");
+					// tablenew5.setModel(tableArray[5], "local");
 
-					var tablenew6 = this.getView().byId("centertable6");
-					tablenew6.setModel(tableArray[6], "local");
+					// var tablenew6 = this.getView().byId("centertable6");
+					// tablenew6.setModel(tableArray[6], "local");
 
-					var tablenew7 = this.getView().byId("centertable7");
-					tablenew7.setModel(tableArray[7], "local");
+					// var tablenew7 = this.getView().byId("centertable7");
+					// tablenew7.setModel(tableArray[7], "local");
 
-					var tablenew8 = this.getView().byId("centertable8");
-					tablenew8.setModel(tableArray[8], "local");
+					// var tablenew8 = this.getView().byId("centertable8");
+					// tablenew8.setModel(tableArray[8], "local");
 
-					var tablenew9 = this.getView().byId("centertable9");
-					tablenew9.setModel(tableArray[9], "local");
+					// var tablenew9 = this.getView().byId("centertable9");
+					// tablenew9.setModel(tableArray[9], "local");
 					// test
 
 					this.getView().byId("table1").setVisible(false);
-					this.getView().byId("centertable").setVisible(true);
-					this.getView().byId("centertable1").setVisible(true);
-					this.getView().byId("centertable2").setVisible(true);
-					this.getView().byId("centertable3").setVisible(true);
-					this.getView().byId("centertable4").setVisible(true);
-					this.getView().byId("centertable5").setVisible(true);
-					this.getView().byId("centertable6").setVisible(true);
-					this.getView().byId("centertable7").setVisible(true);
-					this.getView().byId("centertable8").setVisible(true);
-					this.getView().byId("centertable9").setVisible(true);
-
-					// var oTable = this.getView().byId("centertable");
-					// var oModel = oTable.getModel();
-					// var aRows = oModel.getData().data;
-
-					// var tableloop = document.getElementById("centertable");
-					// for (var p in tableloop.rows) {
-					// 	var row = tableloop.rows[p]
-					// 		//iterate through rows
-					// 		//rows would be accessed using the "row" variable assigned in the for loop
-					// 	for (var j in row.cells) {
-					// 		var col = row.cells[j];
-					// 		//iterate through columns
-					// 		//columns would be accessed using the "col" variable assigned in the for loop
-					// 	}
-					// }
+					this.getView().byId("table2").setVisible(true);
+					// this.getView().byId("centertable").setVisible(true);
+					// this.getView().byId("centertable1").setVisible(true);
+					// this.getView().byId("centertable2").setVisible(true);
+					// this.getView().byId("centertable3").setVisible(true);
+					// this.getView().byId("centertable4").setVisible(true);
+					// this.getView().byId("centertable5").setVisible(true);
+					// this.getView().byId("centertable6").setVisible(true);
+					// this.getView().byId("centertable7").setVisible(true);
+					// this.getView().byId("centertable8").setVisible(true);
+					// this.getView().byId("centertable9").setVisible(true);
 
 				}
 
+				// if (this.getView().byId("chknext").getSelected() === false) {
 				this.onSelectCheckbox();
 				// if (oSegmentedButton !== "available") {
 				this.fnApplyFiltersAndOrdering();
-
-				// var rowCount = this.getView().byId("table1").getBinding("items").getLength();
 				// }
-				// var combo = [];
-				// var comboctr = this.getView().byId("comboCentre");
-				// comboctr.destroyItems();
+				this.getView().byId("panel2").setExpanded(false); // "collapse the panel
 
-			}
-		},
-
-		onSelectRB: function (oEvent) {
-			var rb1 = this.getView().byId("RB1").getSelected();
-			var table = this.getView().byId("table1");
-			this.getView().byId("panel2").setExpanded(true);
-
-			var tableArr = [];
-			var tableData = this.getView().byId("table1");
-			tableData.setModel(tableArr[0]);
-			table.destroyItems(null);
-
-			if (rb1 === false) {
-				this.getView().byId("combo1").setVisible(false);
-				this.getView().byId("comboDistrict").setVisible(false);
-				this.getView().byId("pin").setVisible(true);
-				this.getView().byId("pin").setValue("");
-
-			} else {
-				this.getView().byId("combo1").setVisible(true);
-				this.getView().byId("comboDistrict").setVisible(true);
-				this.getView().byId("pin").setVisible(false);
-				this.getView().byId("combo1").setValue("");
-				this.getView().byId("comboDistrict").setValue("");
-
-				// table.destroyItems(null);
 			}
 		},
 
 		onSelectSegment: function (oEvent) {
 
-			var table = this.getView().byId("table1");
 			this.getView().byId("panel2").setExpanded(true);
 
 			var tableArr = [];
+
 			var tableData = this.getView().byId("table1");
 			tableData.setModel(tableArr[0]);
-			table.destroyItems(null);
+			tableData.destroyItems(null);
 
-			var tableArr1 = [];
-			var tableData1 = this.getView().byId("centertable");
+			tableData = this.getView().byId("table2");
 			tableData.setModel(tableArr[0]);
-			table.destroyItems(null);
+			tableData.destroyItems(null);
+
+			// tableData = this.getView().byId("centertable");
+			// tableData.setModel(tableArr[0]);
+			// tableData.destroyItems(null);
+
+			// tableData = this.getView().byId("centertable1");
+			// tableData.setModel(tableArr[0]);
+			// tableData.destroyItems(null);
+
+			// tableData = this.getView().byId("centertable2");
+			// tableData.setModel(tableArr[0]);
+			// tableData.destroyItems(null);
 
 			var oSegmentedButton = this.byId("seg").getSelectedKey();
-			// oSelectedItemId = oSegmentedButton.getSelectedKey();
 
 			if (oSegmentedButton === "pin") {
 				this.getView().byId("combo1").setVisible(false);
 				this.getView().byId("comboDistrict").setVisible(false);
-				this.getView().byId("comboCentre").setVisible(false);
+
 				this.getView().byId("pin").setVisible(true);
 				this.getView().byId("pin").setValue("");
+				this.getView().byId("chknext").setVisible(true);
 
 			} else if (oSegmentedButton === "dis") {
 				this.getView().byId("combo1").setVisible(true);
+
 				this.getView().byId("comboDistrict").setVisible(true);
-				this.getView().byId("comboCentre").setVisible(false);
+				this.getView().byId("DP1").setVisible(true);
 				this.getView().byId("pin").setVisible(false);
 				this.getView().byId("combo1").setValue("");
 				this.getView().byId("comboDistrict").setValue("");
-
-			} else if (oSegmentedButton === "available") {
-				this.getView().byId("combo1").setVisible(false);
-				this.getView().byId("comboDistrict").setVisible(false);
-				this.getView().byId("comboCentre").setVisible(true);
-				this.getView().byId("pin").setVisible(true);
-				this.getView().byId("combo1").setValue("");
-				this.getView().byId("comboDistrict").setValue("");
+				this.getView().byId("chknext").setVisible(false);
+				this.getView().byId("chknext").setSelected(false);
 
 			}
+
 			this.getView().byId("table1").setVisible(false);
-			this.getView().byId("centertable").setVisible(false);
-			this.getView().byId("centertable1").setVisible(false);
-			this.getView().byId("centertable2").setVisible(false);
-			this.getView().byId("centertable3").setVisible(false);
-			this.getView().byId("centertable4").setVisible(false);
-			this.getView().byId("centertable5").setVisible(false);
-			this.getView().byId("centertable6").setVisible(false);
-			this.getView().byId("centertable7").setVisible(false);
-			this.getView().byId("centertable8").setVisible(false);
-			this.getView().byId("centertable9").setVisible(false);
+			// this.getView().byId("centertable").setVisible(false);
+
+			this.getView().byId("table2").setVisible(false);
 
 		},
 
@@ -496,7 +690,7 @@ sap.ui.define([
 			this.getView().byId("comboDistrict").setModel(oModelDistrict);
 
 		},
-		
+
 		createColumnConfig: function () {
 			var aCols = [];
 
@@ -537,19 +731,22 @@ sap.ui.define([
 				type: EdmType.String
 			});
 
-
-
 			return aCols;
 		},
-		
-		
+
 		onExport: function () {
 			var aCols, oRowBinding, oSettings, oSheet, oTable;
 
-			if (!this._oTable) {
-				this._oTable = this.byId("table1");
-			}
+			if (this.getView().byId("chknext").getSelected() === false) {
+				if (!this._oTable) {
+					this._oTable = this.byId("table1");
+				}
+			} else {
 
+				if (!this._oTable) {
+					this._oTable = this.byId("table2");
+				}
+			}
 			oTable = this._oTable;
 			oRowBinding = oTable.getBinding("items");
 			aCols = this.createColumnConfig();
@@ -561,47 +758,80 @@ sap.ui.define([
 				},
 				dataSource: oRowBinding,
 				fileName: "Vaccine Availibility.xlsx",
-				worker: false // We need to disable worker because we are using a MockServer as OData Service
+				worker: false
 			};
 
 			oSheet = new Spreadsheet(oSettings);
 			oSheet.build().finally(function () {
 				oSheet.destroy();
 			});
-		},		
-
-		onhandlecenter: function (oControlEvent) {
-			var pin = this.getView().byId("pin").getValue();
-
-			function getDate(that, n) {
-
-				var sDate = that.getView().byId("DP1").getDateValue();
-				var today = new Date(sDate);
-				today.setDate(today.getDate() + n);
-				var dd = today.getDate();
-				var mm = today.getMonth() + 1;
-				var yyyy = today.getFullYear();
-				if (dd < 10) {
-					dd = '0' + dd;
-				}
-				if (mm < 10) {
-					mm = '0' + mm;
-				}
-				today = dd + '-' + mm + '-' + yyyy;
-
-				return today;
-			}
-
-			var centerPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=" + pin + "&date=" + getDate(
-				this, 0);
-
-			var oModelCentre = new sap.ui.model.json.JSONModel(centerPath);
-			this.getView().byId("comboCentre").setModel(oModelCentre);
 		},
 
+		// onhandlecenter: function (oControlEvent) {
+		// 	var pin = this.getView().byId("pin").getValue();
+
+		// 	function getDate(that, n) {
+
+		// 		var sDate = that.getView().byId("DP1").getDateValue();
+		// 		var today = new Date(sDate);
+		// 		today.setDate(today.getDate() + n);
+		// 		var dd = today.getDate();
+		// 		var mm = today.getMonth() + 1;
+		// 		var yyyy = today.getFullYear();
+		// 		if (dd < 10) {
+		// 			dd = '0' + dd;
+		// 		}
+		// 		if (mm < 10) {
+		// 			mm = '0' + mm;
+		// 		}
+		// 		today = dd + '-' + mm + '-' + yyyy;
+
+		// 		return today;
+		// 	}
+
+		// 	var centerPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=" + pin + "&date=" +
+		// 		getDate(
+		// 			this, 0);
+
+		// 	var oModelCentre = new sap.ui.model.json.JSONModel(centerPath);
+		// 	this.getView().byId("comboCentre").setModel(oModelCentre);
+		// },
+
+		// onAfterRendering: function() {
+		//         MessageToast.show("test");
+		// },
+
+		// onhandledistrict: function (oControlEvent) {
+		// 	var districtSelected = this.getView().byId("comboDistrict").getSelectedItem().getKey();
+
+		// 	function getDate(that, n) {
+
+		// 		var sDate = that.getView().byId("DP1").getDateValue();
+		// 		var today = new Date(sDate);
+		// 		today.setDate(today.getDate() + n);
+		// 		var dd = today.getDate();
+		// 		var mm = today.getMonth() + 1;
+		// 		var yyyy = today.getFullYear();
+		// 		if (dd < 10) {
+		// 			dd = '0' + dd;
+		// 		}
+		// 		if (mm < 10) {
+		// 			mm = '0' + mm;
+		// 		}
+		// 		today = dd + '-' + mm + '-' + yyyy;
+
+		// 		return today;
+		// 	}
+
+		// 	var centerPath = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=" +
+		// 		districtSelected +
+		// 		"&date=" + getDate(this, 0);
+
+		// 	var oModelCentre = new sap.ui.model.json.JSONModel(centerPath);
+		// 	this.getView().byId("comboCentre").setModel(oModelCentre);
+		// },
+
 		onPress: function (oEvent) {
-			// var spath = oEvent.getSource().getBindingContext("invoice").getPath();
-			// var selectedPath = JSON.stringify(oEvent.getSource().getBindingContext("invoice").getProperty(spath));
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("detail");
 		}
