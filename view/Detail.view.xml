@@ -83,7 +83,7 @@
 				</GenericTile>
 				<!--</FlexBox>-->
 				<!--<FlexBox justifyContent="Center">-->
-				<GenericTile header="Total Sessions: {local>/IndiaDetails/topBlock/sessions/pvt} " frameType="OneByOne" press="press">
+				<GenericTile header="Total Sessions: {local>/IndiaDetails/topBlock/sessions/total} " frameType="OneByOne" press="press">
 					<tileContent>
 						<TileContent footer="">
 							<!--<microchart:ColumnMicroChart size="Responsive">-->
@@ -95,22 +95,20 @@
 							<!--</microchart:ColumnMicroChart>-->
 							<microchart:ComparisonMicroChart press="press" isResponsive="true">
 								<microchart:data>
-									<microchart:ComparisonMicroChartData title="Male" value="{local>/IndiaDetails/topBlock/sessions/total}" color="Good"/>
-									<microchart:ComparisonMicroChartData title="Female" value="{local>/IndiaDetails/topBlock/sessions/govt}" color="Error"/>
-								
+									<microchart:ComparisonMicroChartData title="Male" value="{local>/IndiaDetails/topBlock/sessions/govt}" color="Good"/>
+									<microchart:ComparisonMicroChartData title="Female" value="{local>/IndiaDetails/topBlock/sessions/pvt}" color="Error"/>
 								</microchart:data>
 							</microchart:ComparisonMicroChart>
 						</TileContent>
 					</tileContent>
 				</GenericTile>
-				<GenericTile header="Total Sites: {local>/IndiaDetails/topBlock/sessions/total} " frameType="OneByOne" press="press">
+				<GenericTile header="Total Sites: {local>/IndiaDetails/topBlock/sites/total} " frameType="OneByOne" press="press">
 					<tileContent>
 						<TileContent footer="">
 							<microchart:ColumnMicroChart size="S" press="press" class="sapUiSmallMargin" allowColumnLabels="true">
 								<microchart:columns>
-									
-									<microchart:ColumnMicroChartData value="{local>/IndiaDetails/topBlock/sessions/govt}" label="Govt" color="Good"/>
-									<microchart:ColumnMicroChartData value="{local>/IndiaDetails/topBlock/sessions/pvt}" label="Pvt" color="Error"/>
+									<microchart:ColumnMicroChartData value="{local>/IndiaDetails/topBlock/sites/govt}" label="Govt" color="Good"/>
+									<microchart:ColumnMicroChartData value="{local>/IndiaDetails/topBlock/sites/pvt}" label="Pvt" color="Error"/>
 								</microchart:columns>
 							</microchart:ColumnMicroChart>
 						</TileContent>
@@ -119,14 +117,14 @@
 				<!--<GenericTile header="Total Registration: {local>/IndiaDetails/topBlock/registration/total}" frameType="OneByOne" press="press">-->
 				<!--	<tileContent>-->
 				<!--		<TileContent footer="Blue 18+ : Orange 45+">-->
-							<!--<microchart:ColumnMicroChart size="S" press="press" class="sapUiSmallMargin" allowColumnLabels="true">-->
-							<!--	<microchart:columns>-->
-							<!--		<microchart:ColumnMicroChartData value="{local>/IndiaDetails/topBlock/registration/total}" label="Total" color="Good"/>-->
-							<!--		<microchart:ColumnMicroChartData value="{local>/IndiaDetails/topBlock/registration/city_18_45}" label="18+" color="Error"/>-->
-							<!--		<microchart:ColumnMicroChartData value="{local>/IndiaDetails/topBlock/registration/city_45_above}" label="45+"-->
-							<!--			color="sapUiChartPaletteQualitativeHue1"/>-->
-							<!--	</microchart:columns>-->
-							<!--</microchart:ColumnMicroChart>-->
+				<!--<microchart:ColumnMicroChart size="S" press="press" class="sapUiSmallMargin" allowColumnLabels="true">-->
+				<!--	<microchart:columns>-->
+				<!--		<microchart:ColumnMicroChartData value="{local>/IndiaDetails/topBlock/registration/total}" label="Total" color="Good"/>-->
+				<!--		<microchart:ColumnMicroChartData value="{local>/IndiaDetails/topBlock/registration/city_18_45}" label="18+" color="Error"/>-->
+				<!--		<microchart:ColumnMicroChartData value="{local>/IndiaDetails/topBlock/registration/city_45_above}" label="45+"-->
+				<!--			color="sapUiChartPaletteQualitativeHue1"/>-->
+				<!--	</microchart:columns>-->
+				<!--</microchart:ColumnMicroChart>-->
 				<!--			<microchart:StackedBarMicroChart size="S" press="press" class="sapUiSmallMargin">-->
 				<!--				<microchart:bars>-->
 				<!--					<microchart:StackedBarMicroChartBar value="{local>/IndiaDetails/topBlock/registration/cit_18_45}"/>-->
@@ -138,6 +136,34 @@
 				<!--</GenericTile>-->
 				<!--</FlexBox>-->
 			</content>
+			
+			<layout:FixFlex id='chartFixFlex' minFlexSize="550">
+				<layout:flexContent>
+					<viz:Popover id="idPopOver"></viz:Popover>
+					<viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" vizType='area' width="auto"
+						vizProperties="{title: {text: 'Vaccination Trend'}}">
+						<viz:dataset>
+							<viz.data:FlattenedDataset data="{local>/IndiaDetails/vaccinationDoneByTime}">
+								<viz.data:dimensions>
+									<viz.data:DimensionDefinition name="Time" value="{local>label}"/>
+								</viz.data:dimensions>
+								<viz.data:measures>
+									<viz.data:MeasureDefinition name="Total" value="{local>count}"/>
+									<viz.data:MeasureDefinition name="Dose 1" value="{local>dose_one}"/>
+									<viz.data:MeasureDefinition name="Dose 2" value="{local>dose_two}"/>
+								</viz.data:measures>
+							</viz.data:FlattenedDataset>
+						</viz:dataset>
+						<viz:feeds>
+							<viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure" values="Total"/>
+							<viz.feeds:FeedItem id='valueAxisFeed1' uid="valueAxis" type="Measure" values="Dose 1"/>
+							<viz.feeds:FeedItem id='valueAxisFeed2' uid="valueAxis" type="Measure" values="Dose 2"/>
+							<viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension" values="Time"/>
+						</viz:feeds>
+					</viz:VizFrame>
+				</layout:flexContent>
+			</layout:FixFlex>
+			
 		</Page>
 	</App>
 </mvc:View>
