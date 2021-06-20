@@ -50,10 +50,10 @@
   				} else {
   					if (sValue === "COVISHIELD") {
 
-  						return "../images/covishield.jpg";
+  						return "./images/covishield.jpg";
   					} else if (sValue === "COVAXIN") {
 
-  						return "../images/covaxin.jpg";
+  						return "./images/covaxin.jpg";
   					}
   				}
 
