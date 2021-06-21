@@ -101,7 +101,7 @@
 								<Column minScreenWidth="Tablet">
 									<Label text="Vaccine"/>
 								</Column>
-								<Column  >
+								<Column   >
 									<Label text="Availability"/>
 								</Column>
 								<Column minScreenWidth="Tablet">
@@ -189,7 +189,7 @@
 <!--testing starts					-->
 						
 						
-	<Table id="table2"  items="{local>/centreData}" class="sapUiSizeCompact" >
+	<Table id="table2"  items="{local>/centreData}" class="sapUiSizeCompact" growing="true" growingThreshold="50" >
 							<headerToolbar>
 								<OverflowToolbar>
 									<content>
