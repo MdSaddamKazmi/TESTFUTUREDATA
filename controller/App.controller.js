@@ -480,6 +480,7 @@ sap.ui.define([
 
 									// $.extend(arr, ctr);
 									//that.getOwnerComponent().getModel("local").setProperty("/centreData", arr.centers);
+										// that.getView().byId("table2").setVisible(true);
 									that.getOwnerComponent().getModel("local").setProperty("/centreData", ctr);
 
 									var ocontact_data_Model = new sap.ui.model.json.JSONModel();
