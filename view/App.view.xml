@@ -71,7 +71,7 @@
 												<CheckBox id="chkfree" text="Free" select="onSelectCheckbox"/>
 												<CheckBox id="chkdose1" text="Dose1" select="onSelectCheckbox"/>
 												<CheckBox id="chkdose2" text="Dose2" select="onSelectCheckbox"/>
-												<CheckBox id="chknext" text="Future Data" select="onCheckFuture"/>
+												<CheckBox id="chknext" text="Future Availibility" select="onCheckFuture"/>
 												<!--	</HBox>-->
 												<!--</VBox>-->
 											</content>
